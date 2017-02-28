@@ -246,24 +246,28 @@ if (!String.prototype.includes) {
 
 /** 
  * String.padEnd()
- * version 0.0.0
+ * version 1.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	57   	48      (No)	            44   	10      15
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.padEnd) {
-    // need polyfill
+    String.prototype.padEnd = function (count, str) {
+        return this + (str || '').repeat(count);
+    };
 }
 
 /** 
  * String.padStart()
- * version 0.0.0
+ * version 1.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	57   	51      (No)	            44   	10      15
  * -------------------------------------------------------------------------------
  */
-if (!String.prototype.padEnd) {
-    // need polyfill
+if (!String.prototype.padStart) {
+    String.prototype.padStart = function (count, str) {
+        return (str || '').repeat(count) + this;
+    };
 }
 
 /** 
@@ -344,10 +348,10 @@ if (!String.prototype.repeat) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.startsWith) {
-    String.prototype.startsWith = function(searchString, position){
-      position = position || 0;
-      return this.substr(position, searchString.length) === searchString;
-  };
+    String.prototype.startsWith = function (searchString, position) {
+        position = position || 0;
+        return this.substr(position, searchString.length) === searchString;
+    };
 }
 
 /** 
@@ -414,9 +418,9 @@ if (!String.prototype.startsWith) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.trim) {
-  String.prototype.trim = function () {
-    return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
-  };
+    String.prototype.trim = function () {
+        return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+    };
 }
 
 /** 
@@ -450,3 +454,5 @@ if (!String.prototype.trim) {
  * Basic support	41   	34      (No)  	            (No)	10      ?
  * -------------------------------------------------------------------------------
  */
+
+
