@@ -253,7 +253,7 @@ if (!String.prototype.includes) {
  */
 if (!String.prototype.padEnd) {
     String.prototype.padEnd = function (count, str) {
-        return this + (str || ' ').repeat(count);
+        return this + (str || ' ').repeat(count).substr(0, count);
     };
 }
 
@@ -266,7 +266,7 @@ if (!String.prototype.padEnd) {
  */
 if (!String.prototype.padStart) {
     String.prototype.padStart = function (count, str) {
-        return (str || ' ').repeat(count) + this;
+        return (str || ' ').repeat(count).substr(0, count) + this;
     };
 }
 
@@ -454,5 +454,3 @@ if (!String.prototype.trim) {
  * Basic support	41   	34      (No)  	            (No)	10      ?
  * -------------------------------------------------------------------------------
  */
-
-
