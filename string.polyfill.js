@@ -246,27 +246,27 @@ if (!String.prototype.includes) {
 
 /** 
  * String.padEnd()
- * version 1.0.0
+ * version 1.0.1
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	57   	48      (No)	            44   	10      15
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.padEnd) {
     String.prototype.padEnd = function (count, str) {
-        return this + (str || '').repeat(count);
+        return this + (str || ' ').repeat(count);
     };
 }
 
 /** 
  * String.padStart()
- * version 1.0.0
+ * version 1.0.1
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	57   	51      (No)	            44   	10      15
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.padStart) {
     String.prototype.padStart = function (count, str) {
-        return (str || '').repeat(count) + this;
+        return (str || ' ').repeat(count) + this;
     };
 }
 
