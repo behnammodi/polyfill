@@ -235,12 +235,12 @@ if (!String.prototype.includes) {
 
 /** 
  * String.normalize()
- * version 0.0.0
+ * version 0.0.1
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	34   	31      (No)	            (Yes)	10      (Yes)
  * -------------------------------------------------------------------------------
  */
-if (!String.prototype.includes) {
+if (!String.prototype.normalize) {
     // need polyfill
 }
 
