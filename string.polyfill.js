@@ -252,12 +252,23 @@ if (!String.prototype.includes) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.padEnd) {
-    String.prototype.padEnd = function (count, str) {
-        return this + (str || ' ').repeat(count).substr(0, count);
+    String.prototype.padEnd = function padEnd(targetLength,padString) {
+        targetLength = targetLength>>0; //floor if number or convert non-number to 0;
+        padString = String(padString || ' ');
+        if (this.length > targetLength) {
+            return String(this);
+        }
+        else {
+            targetLength = targetLength-this.length;
+            if (targetLength > padString.length) {
+                padString += padString.repeat(targetLength/padString.length); //append to original to ensure we are longer than needed
+            }
+            return String(this) + padString.slice(0,targetLength);
+        }
     };
 }
 
-/** 
+/**
  * String.padStart()
  * version 1.0.1
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
@@ -265,12 +276,23 @@ if (!String.prototype.padEnd) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.padStart) {
-    String.prototype.padStart = function (count, str) {
-        return (str || ' ').repeat(count).substr(0, count) + this;
+    String.prototype.padStart = function padStart(targetLength,padString) {
+        targetLength = targetLength>>0; //floor if number or convert non-number to 0;
+        padString = String(padString || ' ');
+        if (this.length > targetLength) {
+            return String(this);
+        }
+        else {
+            targetLength = targetLength-this.length;
+            if (targetLength > padString.length) {
+                padString += padString.repeat(targetLength/padString.length); //append to original to ensure we are longer than needed
+            }
+            return padString.slice(0,targetLength) + String(this);
+        }
     };
 }
 
-/** 
+/**
  * String.repeat()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
