@@ -1091,3 +1091,27 @@ if (!Array.prototype.toLocaleString) {
     }
   });
 }
+
+/** 
+ * Array.toString()
+ * version 0.0.0
+ * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
+ * Basic support	(Yes)   (Yes)   (Yes)               (Yes)   (Yes)   (Yes)
+ * -------------------------------------------------------------------------------
+ */
+
+/** 
+ * Array.unshift()
+ * version 0.0.0
+ * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
+ * Basic support	1       1       5.5                 (Yes)   (Yes)   ?
+ * -------------------------------------------------------------------------------
+ */
+
+/** 
+ * Array.values()
+ * version 0.0.0
+ * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
+ * Basic support	(No)    (No)    (No)                (No)    9       (Yes)
+ * -------------------------------------------------------------------------------
+ */
