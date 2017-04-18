@@ -930,3 +930,60 @@ if ('function' !== typeof Array.prototype.reduceRight) {
     return value;
   };
 }
+
+/** 
+ * Array.reverse()
+ * version 0.0.0
+ * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
+ * Basic support	1       1       5.5	                (Yes)   (Yes)   (Yes)
+ * -------------------------------------------------------------------------------
+ */
+
+/** 
+ * Array.shift()
+ * version 0.0.0
+ * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
+ * Basic support	1       1       5.5	                (Yes)   (Yes)   (Yes)
+ * -------------------------------------------------------------------------------
+ */
+
+/** 
+ * Array.slice()
+ * version 0.0.0
+ * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
+ * Basic support	1       1       5.5	                (Yes)   (Yes)   (Yes)
+ * -------------------------------------------------------------------------------
+ */
+
+/** 
+ * Array.some()
+ * version 0.0.0
+ * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
+ * Basic support	1       1.5     9	                (Yes)   (Yes)   ?
+ * -------------------------------------------------------------------------------
+ */
+if (!Array.prototype.some) {
+  Array.prototype.some = function(fun/*, thisArg*/) {
+    'use strict';
+
+    if (this == null) {
+      throw new TypeError('Array.prototype.some called on null or undefined');
+    }
+
+    if (typeof fun !== 'function') {
+      throw new TypeError();
+    }
+
+    var t = Object(this);
+    var len = t.length >>> 0;
+
+    var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+    for (var i = 0; i < len; i++) {
+      if (i in t && fun.call(thisArg, t[i], i, t)) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+}
