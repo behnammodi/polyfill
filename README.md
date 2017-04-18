@@ -2,7 +2,7 @@
 for use old browser 
 
 include:
-  array
-  string
-  function (coming soon)
-  element  (coming soon)
+  array  
+  string  
+  function (coming soon)  
+  element  (coming soon)  
