@@ -656,3 +656,19 @@ if (!Array.prototype.indexOf) {
     return -1;
   };
 }
+
+/** 
+ * Array.join()
+ * version 0.0.0
+ * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
+ * Basic support	1       1       5.5    	            (Yes)   (Yes)   ?
+ * -------------------------------------------------------------------------------
+ */
+
+/** 
+ * Array.keys()
+ * version 0.0.0
+ * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
+ * Basic support	38      28      (No)    	        25      7.1     (Yes)
+ * -------------------------------------------------------------------------------
+ */
