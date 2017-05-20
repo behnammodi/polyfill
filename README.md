@@ -1,8 +1,3 @@
 # polyfill
-for use old browser 
+use ES6 and ES7 utility method in old browser 
 
-include:  
-  array  
-  string  
-  function (coming soon)  
-  element  (coming soon)  
