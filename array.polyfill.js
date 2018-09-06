@@ -111,7 +111,7 @@ if (!Array.isArray) {
  * Basic support	45    	25      (No)    	        (No)	9       (Yes)
  * -------------------------------------------------------------------------------
  */
-if (!Array.concat) {
+if (!Array.of) {
     Array.of = function () {
         return Array.prototype.slice.call(arguments);
     };
