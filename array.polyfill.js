@@ -1,12 +1,4 @@
-/** 
- * Array.length
- * version 0.0.0
- * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	(Yes)  	(Yes)   (Yes)	            (Yes)	(Yes)   (Yes)
- * -------------------------------------------------------------------------------
- */
-
-/** 
+/**
  * Array.from()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
@@ -14,118 +6,129 @@
  * -------------------------------------------------------------------------------
  */
 if (!Array.from) {
-    Array.from = (function () {
-        var toStr = Object.prototype.toString;
-        var isCallable = function (fn) {
-            return typeof fn === 'function' || toStr.call(fn) === '[object Function]';
-        };
-        var toInteger = function (value) {
-            var number = Number(value);
-            if (isNaN(number)) { return 0; }
-            if (number === 0 || !isFinite(number)) { return number; }
-            return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
-        };
-        var maxSafeInteger = Math.pow(2, 53) - 1;
-        var toLength = function (value) {
-            var len = toInteger(value);
-            return Math.min(Math.max(len, 0), maxSafeInteger);
-        };
+  Array.from = (function() {
+    var toStr = Object.prototype.toString;
+    var isCallable = function(fn) {
+      return typeof fn === 'function' || toStr.call(fn) === '[object Function]';
+    };
+    var toInteger = function(value) {
+      var number = Number(value);
+      if (isNaN(number)) {
+        return 0;
+      }
+      if (number === 0 || !isFinite(number)) {
+        return number;
+      }
+      return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
+    };
+    var maxSafeInteger = Math.pow(2, 53) - 1;
+    var toLength = function(value) {
+      var len = toInteger(value);
+      return Math.min(Math.max(len, 0), maxSafeInteger);
+    };
 
-        // The length property of the from method is 1.
-        return function from(arrayLike/*, mapFn, thisArg */) {
-            // 1. Let C be the this value.
-            var C = this;
+    // The length property of the from method is 1.
+    return function from(arrayLike /*, mapFn, thisArg */) {
+      // 1. Let C be the this value.
+      var C = this;
 
-            // 2. Let items be ToObject(arrayLike).
-            var items = Object(arrayLike);
+      // 2. Let items be ToObject(arrayLike).
+      var items = Object(arrayLike);
 
-            // 3. ReturnIfAbrupt(items).
-            if (arrayLike == null) {
-                throw new TypeError('Array.from requires an array-like object - not null or undefined');
-            }
+      // 3. ReturnIfAbrupt(items).
+      if (arrayLike == null) {
+        throw new TypeError(
+          'Array.from requires an array-like object - not null or undefined'
+        );
+      }
 
-            // 4. If mapfn is undefined, then let mapping be false.
-            var mapFn = arguments.length > 1 ? arguments[1] : void undefined;
-            var T;
-            if (typeof mapFn !== 'undefined') {
-                // 5. else
-                // 5. a If IsCallable(mapfn) is false, throw a TypeError exception.
-                if (!isCallable(mapFn)) {
-                    throw new TypeError('Array.from: when provided, the second argument must be a function');
-                }
+      // 4. If mapfn is undefined, then let mapping be false.
+      var mapFn = arguments.length > 1 ? arguments[1] : void undefined;
+      var T;
+      if (typeof mapFn !== 'undefined') {
+        // 5. else
+        // 5. a If IsCallable(mapfn) is false, throw a TypeError exception.
+        if (!isCallable(mapFn)) {
+          throw new TypeError(
+            'Array.from: when provided, the second argument must be a function'
+          );
+        }
 
-                // 5. b. If thisArg was supplied, let T be thisArg; else let T be undefined.
-                if (arguments.length > 2) {
-                    T = arguments[2];
-                }
-            }
+        // 5. b. If thisArg was supplied, let T be thisArg; else let T be undefined.
+        if (arguments.length > 2) {
+          T = arguments[2];
+        }
+      }
 
-            // 10. Let lenValue be Get(items, "length").
-            // 11. Let len be ToLength(lenValue).
-            var len = toLength(items.length);
+      // 10. Let lenValue be Get(items, "length").
+      // 11. Let len be ToLength(lenValue).
+      var len = toLength(items.length);
 
-            // 13. If IsConstructor(C) is true, then
-            // 13. a. Let A be the result of calling the [[Construct]] internal method 
-            // of C with an argument list containing the single item len.
-            // 14. a. Else, Let A be ArrayCreate(len).
-            var A = isCallable(C) ? Object(new C(len)) : new Array(len);
+      // 13. If IsConstructor(C) is true, then
+      // 13. a. Let A be the result of calling the [[Construct]] internal method
+      // of C with an argument list containing the single item len.
+      // 14. a. Else, Let A be ArrayCreate(len).
+      var A = isCallable(C) ? Object(new C(len)) : new Array(len);
 
-            // 16. Let k be 0.
-            var k = 0;
-            // 17. Repeat, while k < len… (also steps a - h)
-            var kValue;
-            while (k < len) {
-                kValue = items[k];
-                if (mapFn) {
-                    A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
-                } else {
-                    A[k] = kValue;
-                }
-                k += 1;
-            }
-            // 18. Let putStatus be Put(A, "length", len, true).
-            A.length = len;
-            // 20. Return A.
-            return A;
-        };
-    }());
+      // 16. Let k be 0.
+      var k = 0;
+      // 17. Repeat, while k < len… (also steps a - h)
+      var kValue;
+      while (k < len) {
+        kValue = items[k];
+        if (mapFn) {
+          A[k] =
+            typeof T === 'undefined'
+              ? mapFn(kValue, k)
+              : mapFn.call(T, kValue, k);
+        } else {
+          A[k] = kValue;
+        }
+        k += 1;
+      }
+      // 18. Let putStatus be Put(A, "length", len, true).
+      A.length = len;
+      // 20. Return A.
+      return A;
+    };
+  })();
 }
 
-/** 
+/**
  * Array.isArray()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	5    	4       9    	            10.5	5       (Yes)
+ * Basic support	  5    	  4       9    	              10.5	5       (Yes)
  * -------------------------------------------------------------------------------
  */
 if (!Array.isArray) {
-    Array.isArray = function (arg) {
-        return Object.prototype.toString.call(arg) === '[object Array]';
-    };
+  Array.isArray = function(arg) {
+    return Object.prototype.toString.call(arg) === '[object Array]';
+  };
 }
 
-/** 
+/**
  * Array.of()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	45    	25      (No)    	        (No)	9       (Yes)
+ * Basic support	  45    	25      (No)    	          (No)	9       (Yes)
  * -------------------------------------------------------------------------------
  */
 if (!Array.of) {
-    Array.of = function () {
-        return Array.prototype.slice.call(arguments);
-    };
+  Array.of = function() {
+    return Array.prototype.slice.call(arguments);
+  };
 }
 
-/** 
+/**
  * Array.copyWithin()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	45   	32      (No)     	        32  	9       12
+ * Basic support	  45     	32      (No)     	          32  	9       12
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.copyWithin) {
-  Array.prototype.copyWithin = function(target, start/*, end*/) {
+  Array.prototype.copyWithin = function(target, start /*, end*/) {
     // Steps 1-2.
     if (this == null) {
       throw new TypeError('this is null or not defined');
@@ -139,24 +142,27 @@ if (!Array.prototype.copyWithin) {
     // Steps 6-8.
     var relativeTarget = target >> 0;
 
-    var to = relativeTarget < 0 ?
-      Math.max(len + relativeTarget, 0) :
-      Math.min(relativeTarget, len);
+    var to =
+      relativeTarget < 0
+        ? Math.max(len + relativeTarget, 0)
+        : Math.min(relativeTarget, len);
 
     // Steps 9-11.
     var relativeStart = start >> 0;
 
-    var from = relativeStart < 0 ?
-      Math.max(len + relativeStart, 0) :
-      Math.min(relativeStart, len);
+    var from =
+      relativeStart < 0
+        ? Math.max(len + relativeStart, 0)
+        : Math.min(relativeStart, len);
 
     // Steps 12-14.
     var end = arguments[2];
     var relativeEnd = end === undefined ? len : end >> 0;
 
-    var final = relativeEnd < 0 ?
-      Math.max(len + relativeEnd, 0) :
-      Math.min(relativeEnd, len);
+    var final =
+      relativeEnd < 0
+        ? Math.max(len + relativeEnd, 0)
+        : Math.min(relativeEnd, len);
 
     // Step 15.
     var count = Math.min(final - from, len - to);
@@ -164,7 +170,7 @@ if (!Array.prototype.copyWithin) {
     // Steps 16-17.
     var direction = 1;
 
-    if (from < to && to < (from + count)) {
+    if (from < to && to < from + count) {
       direction = -1;
       from += count - 1;
       to += count - 1;
@@ -188,19 +194,19 @@ if (!Array.prototype.copyWithin) {
   };
 }
 
-/** 
+/**
  * Array.entries()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	38   	28      (No)     	        25  	7.1     ?
+ * Basic support	  38   	  28      (No)     	          25  	7.1     ?
  * -------------------------------------------------------------------------------
  */
 
-/** 
+/**
  * Array.every()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	(Yes)   1.5     9    	            (Yes)   (Yes)   ?
+ * Basic support	  (Yes)   1.5     9    	             (Yes)  (Yes)   ?
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.every) {
@@ -212,7 +218,7 @@ if (!Array.prototype.every) {
       throw new TypeError('this is null or not defined');
     }
 
-    // 1. Let O be the result of calling ToObject passing the this 
+    // 1. Let O be the result of calling ToObject passing the this
     //    value as the argument.
     var O = Object(this);
 
@@ -236,23 +242,21 @@ if (!Array.prototype.every) {
 
     // 7. Repeat, while k < len
     while (k < len) {
-
       var kValue;
 
       // a. Let Pk be ToString(k).
       //   This is implicit for LHS operands of the in operator
-      // b. Let kPresent be the result of calling the HasProperty internal 
+      // b. Let kPresent be the result of calling the HasProperty internal
       //    method of O with argument Pk.
       //   This step can be combined with c
       // c. If kPresent is true, then
       if (k in O) {
-
         // i. Let kValue be the result of calling the Get internal method
         //    of O with argument Pk.
         kValue = O[k];
 
         // ii. Let testResult be the result of calling the Call internal method
-        //     of callbackfn with T as the this value and argument list 
+        //     of callbackfn with T as the this value and argument list
         //     containing kValue, k, and O.
         var testResult = callbackfn.call(T, kValue, k, O);
 
@@ -267,17 +271,16 @@ if (!Array.prototype.every) {
   };
 }
 
-/** 
+/**
  * Array.fill()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	45      31      (No)    	        (No)    7.1     (Yes)
+ * Basic support	  45      31      (No)    	          (No)  7.1     (Yes)
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.fill) {
   Object.defineProperty(Array.prototype, 'fill', {
     value: function(value) {
-
       // Steps 1-2.
       if (this == null) {
         throw new TypeError('this is null or not defined');
@@ -293,19 +296,20 @@ if (!Array.prototype.fill) {
       var relativeStart = start >> 0;
 
       // Step 8.
-      var k = relativeStart < 0 ?
-        Math.max(len + relativeStart, 0) :
-        Math.min(relativeStart, len);
+      var k =
+        relativeStart < 0
+          ? Math.max(len + relativeStart, 0)
+          : Math.min(relativeStart, len);
 
       // Steps 9-10.
       var end = arguments[2];
-      var relativeEnd = end === undefined ?
-        len : end >> 0;
+      var relativeEnd = end === undefined ? len : end >> 0;
 
       // Step 11.
-      var final = relativeEnd < 0 ?
-        Math.max(len + relativeEnd, 0) :
-        Math.min(relativeEnd, len);
+      var final =
+        relativeEnd < 0
+          ? Math.max(len + relativeEnd, 0)
+          : Math.min(relativeEnd, len);
 
       // Step 12.
       while (k < final) {
@@ -319,15 +323,15 @@ if (!Array.prototype.fill) {
   });
 }
 
-/** 
+/**
  * Array.filter()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	(Yes)   1.5     9   	            (Yes)   (Yes)   ?
+ * Basic support  	(Yes)   1.5     9   	             (Yes)  (Yes)   ?
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.filter) {
-  Array.prototype.filter = function(fun/*, thisArg*/) {
+  Array.prototype.filter = function(fun /*, thisArg*/) {
     'use strict';
 
     if (this === void 0 || this === null) {
@@ -361,17 +365,17 @@ if (!Array.prototype.filter) {
   };
 }
 
-/** 
+/**
  * Array.find()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	45      25      (No)  	            32      7.1     12
+ * Basic support	  45      25      (No)  	            32    7.1     12
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.find) {
   Object.defineProperty(Array.prototype, 'find', {
     value: function(predicate) {
-     // 1. Let O be ? ToObject(this value).
+      // 1. Let O be ? ToObject(this value).
       if (this == null) {
         throw new TypeError('"this" is null or not defined');
       }
@@ -412,17 +416,17 @@ if (!Array.prototype.find) {
   });
 }
 
-/** 
+/**
  * Array.findIndex()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	45      25      (No)  	            (Yes)   7.1     (Yes)
+ * Basic support	  45      25      (No)  	            (Yes) 7.1     (Yes)
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.findIndex) {
   Object.defineProperty(Array.prototype, 'findIndex', {
     value: function(predicate) {
-     // 1. Let O be ? ToObject(this value).
+      // 1. Let O be ? ToObject(this value).
       if (this == null) {
         throw new TypeError('"this" is null or not defined');
       }
@@ -463,17 +467,15 @@ if (!Array.prototype.findIndex) {
   });
 }
 
-/** 
+/**
  * Array.forEach()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	(Yes)   1.5     9    	            (Yes)   (Yes)   ?
+ * Basic support	  (Yes)   1.5     9    	              (Yes) (Yes)   ?
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.forEach) {
-
-  Array.prototype.forEach = function(callback/*, thisArg*/) {
-
+  Array.prototype.forEach = function(callback /*, thisArg*/) {
     var T, k;
 
     if (this == null) {
@@ -489,7 +491,7 @@ if (!Array.prototype.forEach) {
     // 3. Let len be toUint32(lenValue).
     var len = O.length >>> 0;
 
-    // 4. If isCallable(callback) is false, throw a TypeError exception. 
+    // 4. If isCallable(callback) is false, throw a TypeError exception.
     // See: http://es5.github.com/#x9.11
     if (typeof callback !== 'function') {
       throw new TypeError(callback + ' is not a function');
@@ -506,7 +508,6 @@ if (!Array.prototype.forEach) {
 
     // 7. Repeat, while k < len
     while (k < len) {
-
       var kValue;
 
       // a. Let Pk be ToString(k).
@@ -516,7 +517,6 @@ if (!Array.prototype.forEach) {
       //    This step can be combined with c
       // c. If kPresent is true, then
       if (k in O) {
-
         // i. Let kValue be the result of calling the Get internal
         // method of O with argument Pk.
         kValue = O[k];
@@ -532,17 +532,16 @@ if (!Array.prototype.forEach) {
   };
 }
 
-/** 
+/**
  * Array.includes()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	47      43      (No)    	        34      9       14
+ * Basic support	  47      43      (No)    	          34    9       14
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.includes) {
   Object.defineProperty(Array.prototype, 'includes', {
     value: function(searchElement, fromIndex) {
-
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
         throw new TypeError('"this" is null or not defined');
@@ -570,14 +569,20 @@ if (!Array.prototype.includes) {
       var k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
 
       function sameValueZero(x, y) {
-        return x === y || (typeof x === 'number' && typeof y === 'number' && isNaN(x) && isNaN(y));
+        return (
+          x === y ||
+          (typeof x === 'number' &&
+            typeof y === 'number' &&
+            isNaN(x) &&
+            isNaN(y))
+        );
       }
 
       // 7. Repeat, while k < len
       while (k < len) {
         // a. Let elementK be the result of ? Get(O, ! ToString(k)).
         // b. If SameValueZero(searchElement, elementK) is true, return true.
-        // c. Increase k by 1. 
+        // c. Increase k by 1.
         if (sameValueZero(o[k], searchElement)) {
           return true;
         }
@@ -590,16 +595,15 @@ if (!Array.prototype.includes) {
   });
 }
 
-/** 
+/**
  * Array.indexOf()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	(Yes)   1.5     9    	            (Yes)   (Yes)   ?
+ * Basic support	  (Yes)   1.5     9    	              (Yes) (Yes)   ?
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.indexOf) {
   Array.prototype.indexOf = function(searchElement, fromIndex) {
-
     var k;
 
     // 1. Let o be the result of calling ToObject passing
@@ -657,27 +661,27 @@ if (!Array.prototype.indexOf) {
   };
 }
 
-/** 
+/**
  * Array.join()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	1       1       5.5    	            (Yes)   (Yes)   ?
+ * Basic support   	1       1       5.5    	            (Yes) (Yes)   ?
  * -------------------------------------------------------------------------------
  */
 
-/** 
+/**
  * Array.keys()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	38      28      (No)    	        25      7.1     (Yes)
+ * Basic support	  38      28      (No)    	          25    7.1     (Yes)
  * -------------------------------------------------------------------------------
  */
 
-/** 
+/**
  * Array.lastIndexOf()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	(Yes)   (Yes)   9    	            (Yes)   (Yes)   ?
+ * Basic support	  (Yes)   (Yes)   9    	              (Yes) (Yes)   ?
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.lastIndexOf) {
@@ -688,7 +692,8 @@ if (!Array.prototype.lastIndexOf) {
       throw new TypeError();
     }
 
-    var n, k,
+    var n,
+      k,
       t = Object(this),
       len = t.length >>> 0;
     if (len === 0) {
@@ -700,8 +705,7 @@ if (!Array.prototype.lastIndexOf) {
       n = Number(arguments[1]);
       if (n != n) {
         n = 0;
-      }
-      else if (n != 0 && n != (1 / 0) && n != -(1 / 0)) {
+      } else if (n != 0 && n != 1 / 0 && n != -(1 / 0)) {
         n = (n > 0 || -1) * Math.floor(Math.abs(n));
       }
     }
@@ -715,28 +719,26 @@ if (!Array.prototype.lastIndexOf) {
   };
 }
 
-/** 
+/**
  * Array.map()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	(Yes)   1.5     9    	            (Yes)   (Yes)   ?
+ * Basic support  	(Yes)   1.5     9    	              (Yes) (Yes)   ?
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.map) {
-
-  Array.prototype.map = function(callback/*, thisArg*/) {
-
+  Array.prototype.map = function(callback /*, thisArg*/) {
     var T, A, k;
 
     if (this == null) {
       throw new TypeError('this is null or not defined');
     }
 
-    // 1. Let O be the result of calling ToObject passing the |this| 
+    // 1. Let O be the result of calling ToObject passing the |this|
     //    value as the argument.
     var O = Object(this);
 
-    // 2. Let lenValue be the result of calling the Get internal 
+    // 2. Let lenValue be the result of calling the Get internal
     //    method of O with the argument "length".
     // 3. Let len be ToUint32(lenValue).
     var len = O.length >>> 0;
@@ -752,8 +754,8 @@ if (!Array.prototype.map) {
       T = arguments[1];
     }
 
-    // 6. Let A be a new array created as if by the expression new Array(len) 
-    //    where Array is the standard built-in constructor with that name and 
+    // 6. Let A be a new array created as if by the expression new Array(len)
+    //    where Array is the standard built-in constructor with that name and
     //    len is the value of len.
     A = new Array(len);
 
@@ -762,23 +764,21 @@ if (!Array.prototype.map) {
 
     // 8. Repeat, while k < len
     while (k < len) {
-
       var kValue, mappedValue;
 
       // a. Let Pk be ToString(k).
       //   This is implicit for LHS operands of the in operator
-      // b. Let kPresent be the result of calling the HasProperty internal 
+      // b. Let kPresent be the result of calling the HasProperty internal
       //    method of O with argument Pk.
       //   This step can be combined with c
       // c. If kPresent is true, then
       if (k in O) {
-
-        // i. Let kValue be the result of calling the Get internal 
+        // i. Let kValue be the result of calling the Get internal
         //    method of O with argument Pk.
         kValue = O[k];
 
-        // ii. Let mappedValue be the result of calling the Call internal 
-        //     method of callback with T as the this value and argument 
+        // ii. Let mappedValue be the result of calling the Call internal
+        //     method of callback with T as the this value and argument
         //     list containing kValue, k, and O.
         mappedValue = callback.call(T, kValue, k, O);
 
@@ -810,63 +810,64 @@ if (!Array.prototype.map) {
   };
 }
 
-/** 
+/**
  * Array.pop()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	1       1       5.5 	            (Yes)   (Yes)   ?
+ * Basic support	  1       1       5.5 	              (Yes) (Yes)   ?
  * -------------------------------------------------------------------------------
  */
 
-/** 
+/**
  * Array.push()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	1       1       5.5 	            (Yes)   (Yes)   ?
+ * Basic support	  1       1       5.5 	              (Yes) (Yes)   ?
  * -------------------------------------------------------------------------------
  */
 
-/** 
+/**
  * Array.reduce()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	(Yes)   3       9	                10.5    4       ?
+ * Basic support  	(Yes)   3       9	                  10.5  4       ?
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.reduce) {
   Object.defineProperty(Array.prototype, 'reduce', {
     value: function(callback /*, initialValue*/) {
       if (this === null) {
-        throw new TypeError( 'Array.prototype.reduce ' + 
-          'called on null or undefined' );
+        throw new TypeError(
+          'Array.prototype.reduce ' + 'called on null or undefined'
+        );
       }
       if (typeof callback !== 'function') {
-        throw new TypeError( callback +
-          ' is not a function');
+        throw new TypeError(callback + ' is not a function');
       }
 
       // 1. Let O be ? ToObject(this value).
       var o = Object(this);
 
       // 2. Let len be ? ToLength(? Get(O, "length")).
-      var len = o.length >>> 0; 
+      var len = o.length >>> 0;
 
-      // Steps 3, 4, 5, 6, 7      
-      var k = 0; 
+      // Steps 3, 4, 5, 6, 7
+      var k = 0;
       var value;
 
       if (arguments.length >= 2) {
         value = arguments[1];
       } else {
         while (k < len && !(k in o)) {
-          k++; 
+          k++;
         }
 
         // 3. If len is 0 and initialValue is not present,
         //    throw a TypeError exception.
         if (k >= len) {
-          throw new TypeError( 'Reduce of empty array ' +
-            'with no initial value' );
+          throw new TypeError(
+            'Reduce of empty array ' + 'with no initial value'
+          );
         }
         value = o[k++];
       }
@@ -884,7 +885,7 @@ if (!Array.prototype.reduce) {
           value = callback(value, o[k], k, o);
         }
 
-        // d. Increase k by 1.      
+        // d. Increase k by 1.
         k++;
       }
 
@@ -894,11 +895,11 @@ if (!Array.prototype.reduce) {
   });
 }
 
-/** 
+/**
  * Array.reduceRight()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	(Yes)   3       9	                10.5    4       ?
+ * Basic support	  (Yes)   3       9	                  10.5  4       ?
  * -------------------------------------------------------------------------------
  */
 if ('function' !== typeof Array.prototype.reduceRight) {
@@ -910,7 +911,10 @@ if ('function' !== typeof Array.prototype.reduceRight) {
     if ('function' !== typeof callback) {
       throw new TypeError(callback + ' is not a function');
     }
-    var t = Object(this), len = t.length >>> 0, k = len - 1, value;
+    var t = Object(this),
+      len = t.length >>> 0,
+      k = len - 1,
+      value;
     if (arguments.length >= 2) {
       value = arguments[1];
     } else {
@@ -931,39 +935,39 @@ if ('function' !== typeof Array.prototype.reduceRight) {
   };
 }
 
-/** 
+/**
  * Array.reverse()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	1       1       5.5	                (Yes)   (Yes)   (Yes)
+ * Basic support	  1       1       5.5	                (Yes)   (Yes)   (Yes)
  * -------------------------------------------------------------------------------
  */
 
-/** 
+/**
  * Array.shift()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	1       1       5.5	                (Yes)   (Yes)   (Yes)
+ * Basic support  	1       1       5.5	                (Yes) (Yes)   (Yes)
  * -------------------------------------------------------------------------------
  */
 
-/** 
+/**
  * Array.slice()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	1       1       5.5	                (Yes)   (Yes)   (Yes)
+ * Basic support	  1       1       5.5	                (Yes) (Yes)   (Yes)
  * -------------------------------------------------------------------------------
  */
 
-/** 
+/**
  * Array.some()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	1       1.5     9	                (Yes)   (Yes)   ?
+ * Basic support	  1       1.5     9	                 (Yes)  (Yes)   ?
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.some) {
-  Array.prototype.some = function(fun/*, thisArg*/) {
+  Array.prototype.some = function(fun /*, thisArg*/) {
     'use strict';
 
     if (this == null) {
@@ -988,27 +992,27 @@ if (!Array.prototype.some) {
   };
 }
 
-/** 
+/**
  * Array.sort()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	1       1       5.5	                (Yes)   (Yes)   (Yes)
+ * Basic support  	1       1       5.5	                (Yes) (Yes)   (Yes)
  * -------------------------------------------------------------------------------
  */
 
-/** 
+/**
  * Array.splice()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	1       1       5.5	                (Yes)   (Yes)   (Yes)
+ * Basic support  	1       1       5.5	                (Yes) (Yes)   (Yes)
  * -------------------------------------------------------------------------------
  */
 
-/** 
+/**
  * Array.toLocaleString()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	(Yes)   (Yes)   (Yes) 	            (Yes)   (Yes)   (Yes)
+ * Basic support	  (Yes)   (Yes)   (Yes) 	            (Yes) (Yes)   (Yes)
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.toLocaleString) {
@@ -1024,9 +1028,9 @@ if (!Array.prototype.toLocaleString) {
       // 2. Let len be ? ToLength(? Get(A, "length")).
       var len = a.length >>> 0;
 
-      // 3. Let separator be the String value for the 
-      //    list-separator String appropriate for the 
-      //    host environment's current locale (this is 
+      // 3. Let separator be the String value for the
+      //    list-separator String appropriate for the
+      //    host environment's current locale (this is
       //    derived in an implementation-defined way).
       // NOTE: In this case, we will use a comma
       var separator = ',';
@@ -1041,23 +1045,25 @@ if (!Array.prototype.toLocaleString) {
       // 6. If firstElement is undefined or null, then
       //  a.Let R be the empty String.
       // 7. Else,
-      //  a. Let R be ? 
-      //     ToString(? 
+      //  a. Let R be ?
+      //     ToString(?
       //       Invoke(
-      //        firstElement, 
-      //        "toLocaleString", 
+      //        firstElement,
+      //        "toLocaleString",
       //        « locales, options »
       //       )
       //     )
-      var r = firstElement == null ? 
-        '' : firstElement.toLocaleString(locales, options);
+      var r =
+        firstElement == null
+          ? ''
+          : firstElement.toLocaleString(locales, options);
 
       // 8. Let k be 1.
       var k = 1;
 
       // 9. Repeat, while k < len
       while (k < len) {
-        // a. Let S be a String value produced by 
+        // a. Let S be a String value produced by
         //   concatenating R and separator.
         var s = r + separator;
 
@@ -1067,18 +1073,20 @@ if (!Array.prototype.toLocaleString) {
         // c. If nextElement is undefined or null, then
         //   i. Let R be the empty String.
         // d. Else,
-        //   i. Let R be ? 
-        //     ToString(? 
+        //   i. Let R be ?
+        //     ToString(?
         //       Invoke(
-        //        nextElement, 
-        //        "toLocaleString", 
+        //        nextElement,
+        //        "toLocaleString",
         //        « locales, options »
         //       )
         //     )
-        r = nextElement == null ? 
-          '' : nextElement.toLocaleString(locales, options);
+        r =
+          nextElement == null
+            ? ''
+            : nextElement.toLocaleString(locales, options);
 
-        // e. Let R be a String value produced by 
+        // e. Let R be a String value produced by
         //   concatenating S and R.
         r = s + r;
 
@@ -1092,26 +1100,26 @@ if (!Array.prototype.toLocaleString) {
   });
 }
 
-/** 
+/**
  * Array.toString()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	(Yes)   (Yes)   (Yes)               (Yes)   (Yes)   (Yes)
+ * Basic support  	(Yes)   (Yes)   (Yes)               (Yes) (Yes)   (Yes)
  * -------------------------------------------------------------------------------
  */
 
-/** 
+/**
  * Array.unshift()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	1       1       5.5                 (Yes)   (Yes)   ?
+ * Basic support	  1       1       5.5                 (Yes) (Yes)   ?
  * -------------------------------------------------------------------------------
  */
 
-/** 
+/**
  * Array.values()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
- * Basic support	(No)    (No)    (No)                (No)    9       (Yes)
+ * Basic support  	(No)    (No)    (No)                (No)  9       (Yes)
  * -------------------------------------------------------------------------------
  */
