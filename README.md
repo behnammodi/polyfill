@@ -91,3 +91,9 @@
 | Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
 | ------------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
 | Basic support | (Yes)  | 1.5     | 9                 | (Yes) | (Yes)  | ?    |
+
+### Array.includes()
+
+| Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
+| ------------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
+| Basic support | 47     | 43      | (No)              | 34    | 9      | 14   |
