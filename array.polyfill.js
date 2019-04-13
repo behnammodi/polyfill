@@ -468,6 +468,26 @@ if (!Array.prototype.findIndex) {
 }
 
 /**
+ * Array.flat()
+ * version 0.0.0
+ * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
+ * Basic support	  69      62      (No)    	          56    12      (No)
+ * -------------------------------------------------------------------------------
+ */
+if (!Array.prototype.flat) {
+  Array.prototype.flat = function() {
+    const stack = [].concat(this);
+    const result = [];
+    while (stack.length) {
+      const next = stack.pop();
+      if (Array.isArray(next)) stack.push.apply(stack, next);
+      else result.push(next);
+    }
+    return result.reverse();
+  };
+}
+
+/**
  * Array.forEach()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
