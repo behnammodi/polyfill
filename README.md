@@ -94,6 +94,14 @@
 
 ---
 
+### Array.prototype.flatMap()
+
+| Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
+| ------------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
+| Basic support | 69     | 62      | (No)              | 56    | 12     | (No) |
+
+---
+
 ### Array.prototype.forEach()
 
 | Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |

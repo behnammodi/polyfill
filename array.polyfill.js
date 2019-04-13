@@ -488,6 +488,19 @@ if (!Array.prototype.flat) {
 }
 
 /**
+ * Array.prototype.flatMap()
+ * version 0.0.0
+ * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
+ * Basic support	  69      62      (No)    	          56    12      (No)
+ * -------------------------------------------------------------------------------
+ */
+if (!Array.prototype.flatMap) {
+  Array.prototype.flatMap = function() {
+    return Array.prototype.map.apply(this, arguments).flat(1);
+  };
+}
+
+/**
  * Array.prototype.forEach()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
