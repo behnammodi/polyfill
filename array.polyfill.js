@@ -1,5 +1,5 @@
 /**
- * Array.from()
+ * Array.prototype.from()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	45  	32      (No)	            (Yes)	9       (Yes)
@@ -95,7 +95,7 @@ if (!Array.from) {
 }
 
 /**
- * Array.isArray()
+ * Array.prototype.isArray()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  5    	  4       9    	              10.5	5       (Yes)
@@ -108,7 +108,7 @@ if (!Array.isArray) {
 }
 
 /**
- * Array.of()
+ * Array.prototype.of()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  45    	25      (No)    	          (No)	9       (Yes)
@@ -121,7 +121,7 @@ if (!Array.of) {
 }
 
 /**
- * Array.copyWithin()
+ * Array.prototype.copyWithin()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  45     	32      (No)     	          32  	9       12
@@ -195,7 +195,7 @@ if (!Array.prototype.copyWithin) {
 }
 
 /**
- * Array.entries()
+ * Array.prototype.entries()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  38   	  28      (No)     	          25  	7.1     ?
@@ -203,7 +203,7 @@ if (!Array.prototype.copyWithin) {
  */
 
 /**
- * Array.every()
+ * Array.prototype.every()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  (Yes)   1.5     9    	             (Yes)  (Yes)   ?
@@ -272,7 +272,7 @@ if (!Array.prototype.every) {
 }
 
 /**
- * Array.fill()
+ * Array.prototype.fill()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  45      31      (No)    	          (No)  7.1     (Yes)
@@ -324,7 +324,7 @@ if (!Array.prototype.fill) {
 }
 
 /**
- * Array.filter()
+ * Array.prototype.filter()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support  	(Yes)   1.5     9   	             (Yes)  (Yes)   ?
@@ -366,7 +366,7 @@ if (!Array.prototype.filter) {
 }
 
 /**
- * Array.find()
+ * Array.prototype.find()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  45      25      (No)  	            32    7.1     12
@@ -417,7 +417,7 @@ if (!Array.prototype.find) {
 }
 
 /**
- * Array.findIndex()
+ * Array.prototype.findIndex()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  45      25      (No)  	            (Yes) 7.1     (Yes)
@@ -468,7 +468,7 @@ if (!Array.prototype.findIndex) {
 }
 
 /**
- * Array.flat()
+ * Array.prototype.flat()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  69      62      (No)    	          56    12      (No)
@@ -488,7 +488,7 @@ if (!Array.prototype.flat) {
 }
 
 /**
- * Array.forEach()
+ * Array.prototype.forEach()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  (Yes)   1.5     9    	              (Yes) (Yes)   ?
@@ -553,7 +553,7 @@ if (!Array.prototype.forEach) {
 }
 
 /**
- * Array.includes()
+ * Array.prototype.includes()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  47      43      (No)    	          34    9       14
@@ -616,7 +616,7 @@ if (!Array.prototype.includes) {
 }
 
 /**
- * Array.indexOf()
+ * Array.prototype.indexOf()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  (Yes)   1.5     9    	              (Yes) (Yes)   ?
@@ -682,7 +682,7 @@ if (!Array.prototype.indexOf) {
 }
 
 /**
- * Array.join()
+ * Array.prototype.join()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support   	1       1       5.5    	            (Yes) (Yes)   ?
@@ -690,7 +690,7 @@ if (!Array.prototype.indexOf) {
  */
 
 /**
- * Array.keys()
+ * Array.prototype.keys()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  38      28      (No)    	          25    7.1     (Yes)
@@ -698,7 +698,7 @@ if (!Array.prototype.indexOf) {
  */
 
 /**
- * Array.lastIndexOf()
+ * Array.prototype.lastIndexOf()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  (Yes)   (Yes)   9    	              (Yes) (Yes)   ?
@@ -740,7 +740,7 @@ if (!Array.prototype.lastIndexOf) {
 }
 
 /**
- * Array.map()
+ * Array.prototype.map()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support  	(Yes)   1.5     9    	              (Yes) (Yes)   ?
@@ -831,7 +831,7 @@ if (!Array.prototype.map) {
 }
 
 /**
- * Array.pop()
+ * Array.prototype.pop()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  1       1       5.5 	              (Yes) (Yes)   ?
@@ -839,7 +839,7 @@ if (!Array.prototype.map) {
  */
 
 /**
- * Array.push()
+ * Array.prototype.push()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  1       1       5.5 	              (Yes) (Yes)   ?
@@ -847,7 +847,7 @@ if (!Array.prototype.map) {
  */
 
 /**
- * Array.reduce()
+ * Array.prototype.reduce()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support  	(Yes)   3       9	                  10.5  4       ?
@@ -916,7 +916,7 @@ if (!Array.prototype.reduce) {
 }
 
 /**
- * Array.reduceRight()
+ * Array.prototype.reduceRight()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  (Yes)   3       9	                  10.5  4       ?
@@ -956,7 +956,7 @@ if ('function' !== typeof Array.prototype.reduceRight) {
 }
 
 /**
- * Array.reverse()
+ * Array.prototype.reverse()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  1       1       5.5	                (Yes)   (Yes)   (Yes)
@@ -964,7 +964,7 @@ if ('function' !== typeof Array.prototype.reduceRight) {
  */
 
 /**
- * Array.shift()
+ * Array.prototype.shift()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support  	1       1       5.5	                (Yes) (Yes)   (Yes)
@@ -972,7 +972,7 @@ if ('function' !== typeof Array.prototype.reduceRight) {
  */
 
 /**
- * Array.slice()
+ * Array.prototype.slice()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  1       1       5.5	                (Yes) (Yes)   (Yes)
@@ -980,7 +980,7 @@ if ('function' !== typeof Array.prototype.reduceRight) {
  */
 
 /**
- * Array.some()
+ * Array.prototype.some()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  1       1.5     9	                 (Yes)  (Yes)   ?
@@ -1013,7 +1013,7 @@ if (!Array.prototype.some) {
 }
 
 /**
- * Array.sort()
+ * Array.prototype.sort()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support  	1       1       5.5	                (Yes) (Yes)   (Yes)
@@ -1021,7 +1021,7 @@ if (!Array.prototype.some) {
  */
 
 /**
- * Array.splice()
+ * Array.prototype.splice()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support  	1       1       5.5	                (Yes) (Yes)   (Yes)
@@ -1029,7 +1029,7 @@ if (!Array.prototype.some) {
  */
 
 /**
- * Array.toLocaleString()
+ * Array.prototype.toLocaleString()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  (Yes)   (Yes)   (Yes) 	            (Yes) (Yes)   (Yes)
@@ -1121,7 +1121,7 @@ if (!Array.prototype.toLocaleString) {
 }
 
 /**
- * Array.toString()
+ * Array.prototype.toString()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support  	(Yes)   (Yes)   (Yes)               (Yes) (Yes)   (Yes)
@@ -1129,7 +1129,7 @@ if (!Array.prototype.toLocaleString) {
  */
 
 /**
- * Array.unshift()
+ * Array.prototype.unshift()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support	  1       1       5.5                 (Yes) (Yes)   ?
@@ -1137,7 +1137,7 @@ if (!Array.prototype.toLocaleString) {
  */
 
 /**
- * Array.values()
+ * Array.prototype.values()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support  	(No)    (No)    (No)                (No)  9       (Yes)

@@ -6,7 +6,7 @@
 
 ---
 
-### Array.from()
+### Array.prototype.from()
 
 | Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge  |
 | ------------- | ------ | ------- | ----------------- | ----- | ------ | ----- |
@@ -14,7 +14,7 @@
 
 ---
 
-### Array.isArray()
+### Array.prototype.isArray()
 
 | Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge  |
 | ------------- | ------ | ------- | ----------------- | ----- | ------ | ----- |
@@ -22,7 +22,7 @@
 
 ---
 
-### Array.of()
+### Array.prototype.of()
 
 | Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge  |
 | ------------- | ------ | ------- | ----------------- | ----- | ------ | ----- |
@@ -30,7 +30,7 @@
 
 ---
 
-### Array.copyWithin()
+### Array.prototype.copyWithin()
 
 | Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
 | ------------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
@@ -38,7 +38,7 @@
 
 ---
 
-### Array.entries() ❌
+### Array.prototype.entries() ❌
 
 | Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
 | ------------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
@@ -46,7 +46,7 @@
 
 ---
 
-### Array.every()
+### Array.prototype.every()
 
 | Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
 | ------------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
@@ -54,7 +54,7 @@
 
 ---
 
-### Array.fill()
+### Array.prototype.fill()
 
 | Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge  |
 | ------------- | ------ | ------- | ----------------- | ----- | ------ | ----- |
@@ -62,7 +62,7 @@
 
 ---
 
-### Array.filter()
+### Array.prototype.filter()
 
 | Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
 | ------------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
@@ -70,7 +70,7 @@
 
 ---
 
-### Array.find()
+### Array.prototype.find()
 
 | Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
 | ------------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
@@ -78,7 +78,7 @@
 
 ---
 
-### Array.findIndex()
+### Array.prototype.findIndex()
 
 | Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge  |
 | ------------- | ------ | ------- | ----------------- | ----- | ------ | ----- |
@@ -86,13 +86,21 @@
 
 ---
 
-### Array.forEach()
+### Array.prototype.flat()
+
+| Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
+| ------------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
+| Basic support | 69     | 62      | (No)              | 56    | 12     | (No) |
+
+---
+
+### Array.prototype.forEach()
 
 | Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
 | ------------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
 | Basic support | (Yes)  | 1.5     | 9                 | (Yes) | (Yes)  | ?    |
 
-### Array.includes()
+### Array.prototype.includes()
 
 | Feature       | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
 | ------------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
