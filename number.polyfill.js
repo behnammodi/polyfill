@@ -1,7 +1,7 @@
 /**
  * Number.isInteger()
  * version 0.0.0
- * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
+ * Feature          Chrome  Firefox Internet Explorer   Opera	Safari	Edge
  * Basic support    34      16      (No)                21    9       12
  * -------------------------------------------------------------------------------
  */
