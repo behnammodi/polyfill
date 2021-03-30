@@ -6,12 +6,12 @@
  * -------------------------------------------------------------------------------
  */
 if (!Array.from) {
-  Array.from = (function() {
+  Array.from = (function () {
     var toStr = Object.prototype.toString;
-    var isCallable = function(fn) {
+    var isCallable = function (fn) {
       return typeof fn === 'function' || toStr.call(fn) === '[object Function]';
     };
-    var toInteger = function(value) {
+    var toInteger = function (value) {
       var number = Number(value);
       if (isNaN(number)) {
         return 0;
@@ -22,7 +22,7 @@ if (!Array.from) {
       return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
     };
     var maxSafeInteger = Math.pow(2, 53) - 1;
-    var toLength = function(value) {
+    var toLength = function (value) {
       var len = toInteger(value);
       return Math.min(Math.max(len, 0), maxSafeInteger);
     };
@@ -102,7 +102,7 @@ if (!Array.from) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.isArray) {
-  Array.isArray = function(arg) {
+  Array.isArray = function (arg) {
     return Object.prototype.toString.call(arg) === '[object Array]';
   };
 }
@@ -115,7 +115,7 @@ if (!Array.isArray) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.of) {
-  Array.of = function() {
+  Array.of = function () {
     return Array.prototype.slice.call(arguments);
   };
 }
@@ -128,7 +128,7 @@ if (!Array.of) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.copyWithin) {
-  Array.prototype.copyWithin = function(target, start /*, end*/) {
+  Array.prototype.copyWithin = function (target, start /*, end*/) {
     // Steps 1-2.
     if (this == null) {
       throw new TypeError('this is null or not defined');
@@ -210,7 +210,7 @@ if (!Array.prototype.copyWithin) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.every) {
-  Array.prototype.every = function(callbackfn, thisArg) {
+  Array.prototype.every = function (callbackfn, thisArg) {
     'use strict';
     var T, k;
 
@@ -280,7 +280,7 @@ if (!Array.prototype.every) {
  */
 if (!Array.prototype.fill) {
   Object.defineProperty(Array.prototype, 'fill', {
-    value: function(value) {
+    value: function (value) {
       // Steps 1-2.
       if (this == null) {
         throw new TypeError('this is null or not defined');
@@ -331,7 +331,7 @@ if (!Array.prototype.fill) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.filter) {
-  Array.prototype.filter = function(fun /*, thisArg*/) {
+  Array.prototype.filter = function (fun /*, thisArg*/) {
     'use strict';
 
     if (this === void 0 || this === null) {
@@ -374,7 +374,7 @@ if (!Array.prototype.filter) {
  */
 if (!Array.prototype.find) {
   Object.defineProperty(Array.prototype, 'find', {
-    value: function(predicate) {
+    value: function (predicate) {
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
         throw new TypeError('"this" is null or not defined');
@@ -425,7 +425,7 @@ if (!Array.prototype.find) {
  */
 if (!Array.prototype.findIndex) {
   Object.defineProperty(Array.prototype, 'findIndex', {
-    value: function(predicate) {
+    value: function (predicate) {
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
         throw new TypeError('"this" is null or not defined');
@@ -475,7 +475,7 @@ if (!Array.prototype.findIndex) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.flat) {
-  Array.prototype.flat = function() {
+  Array.prototype.flat = function () {
     const stack = [].concat(this);
     const result = [];
     while (stack.length) {
@@ -495,7 +495,7 @@ if (!Array.prototype.flat) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.flatMap) {
-  Array.prototype.flatMap = function() {
+  Array.prototype.flatMap = function () {
     return Array.prototype.map.apply(this, arguments).flat(1);
   };
 }
@@ -508,7 +508,7 @@ if (!Array.prototype.flatMap) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.forEach) {
-  Array.prototype.forEach = function(callback /*, thisArg*/) {
+  Array.prototype.forEach = function (callback /*, thisArg*/) {
     var T, k;
 
     if (this == null) {
@@ -574,7 +574,7 @@ if (!Array.prototype.forEach) {
  */
 if (!Array.prototype.includes) {
   Object.defineProperty(Array.prototype, 'includes', {
-    value: function(searchElement, fromIndex) {
+    value: function (searchElement, fromIndex) {
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
         throw new TypeError('"this" is null or not defined');
@@ -636,7 +636,7 @@ if (!Array.prototype.includes) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.indexOf) {
-  Array.prototype.indexOf = function(searchElement, fromIndex) {
+  Array.prototype.indexOf = function (searchElement, fromIndex) {
     var k;
 
     // 1. Let o be the result of calling ToObject passing
@@ -718,7 +718,7 @@ if (!Array.prototype.indexOf) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.lastIndexOf) {
-  Array.prototype.lastIndexOf = function(searchElement /*, fromIndex*/) {
+  Array.prototype.lastIndexOf = function (searchElement /*, fromIndex*/) {
     'use strict';
 
     if (this === void 0 || this === null) {
@@ -760,7 +760,7 @@ if (!Array.prototype.lastIndexOf) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.map) {
-  Array.prototype.map = function(callback /*, thisArg*/) {
+  Array.prototype.map = function (callback /*, thisArg*/) {
     var T, A, k;
 
     if (this == null) {
@@ -868,7 +868,7 @@ if (!Array.prototype.map) {
  */
 if (!Array.prototype.reduce) {
   Object.defineProperty(Array.prototype, 'reduce', {
-    value: function(callback /*, initialValue*/) {
+    value: function (callback /*, initialValue*/) {
       if (this === null) {
         throw new TypeError(
           'Array.prototype.reduce ' + 'called on null or undefined'
@@ -936,7 +936,7 @@ if (!Array.prototype.reduce) {
  * -------------------------------------------------------------------------------
  */
 if ('function' !== typeof Array.prototype.reduceRight) {
-  Array.prototype.reduceRight = function(callback /*, initialValue*/) {
+  Array.prototype.reduceRight = function (callback /*, initialValue*/) {
     'use strict';
     if (null === this || 'undefined' === typeof this) {
       throw new TypeError('Array.prototype.reduce called on null or undefined');
@@ -1000,7 +1000,7 @@ if ('function' !== typeof Array.prototype.reduceRight) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.some) {
-  Array.prototype.some = function(fun /*, thisArg*/) {
+  Array.prototype.some = function (fun /*, thisArg*/) {
     'use strict';
 
     if (this == null) {
@@ -1050,7 +1050,7 @@ if (!Array.prototype.some) {
  */
 if (!Array.prototype.toLocaleString) {
   Object.defineProperty(Array.prototype, 'toLocaleString', {
-    value: function(locales, options) {
+    value: function (locales, options) {
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
         throw new TypeError('"this" is null or not defined');

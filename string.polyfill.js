@@ -14,18 +14,18 @@
  * -------------------------------------------------------------------------------
  */
 if (!String.fromCodePoint) {
-  (function() {
-    var defineProperty = (function() {
+  (function () {
+    var defineProperty = (function () {
       try {
         var object = {};
         var $defineProperty = Object.defineProperty;
         var result = $defineProperty(object, object, object) && $defineProperty;
-      } catch (error) {}
+      } catch (error) { }
       return result;
     })();
     var stringFromCharCode = String.fromCharCode;
     var floor = Math.floor;
-    var fromCodePoint = function() {
+    var fromCodePoint = function () {
       var MAX_SIZE = 0x4000;
       var codeUnits = [];
       var highSurrogate;
@@ -106,9 +106,9 @@ if (!String.fromCodePoint) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.codePointAt) {
-  (function() {
+  (function () {
     'use strict';
-    var codePointAt = function(position) {
+    var codePointAt = function (position) {
       if (this == null) {
         throw TypeError();
       }
@@ -159,7 +159,7 @@ if (!String.prototype.codePointAt) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.endsWith) {
-  String.prototype.endsWith = function(searchString, position) {
+  String.prototype.endsWith = function (searchString, position) {
     var subjectString = this.toString();
     if (
       typeof position !== 'number' ||
@@ -183,7 +183,7 @@ if (!String.prototype.endsWith) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.includes) {
-  String.prototype.includes = function(search, start) {
+  String.prototype.includes = function (search, start) {
     'use strict';
     if (typeof start !== 'number') {
       start = 0;
@@ -301,7 +301,7 @@ if (!String.prototype.padStart) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.repeat) {
-  String.prototype.repeat = function(count) {
+  String.prototype.repeat = function (count) {
     'use strict';
     if (this == null) {
       throw new TypeError("can't convert " + this + ' to object');
@@ -327,7 +327,7 @@ if (!String.prototype.repeat) {
       );
     }
     var rpt = '';
-    for (;;) {
+    for (; ;) {
       if ((count & 1) == 1) {
         rpt += str;
       }
@@ -373,7 +373,7 @@ if (!String.prototype.repeat) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.startsWith) {
-  String.prototype.startsWith = function(searchString, position) {
+  String.prototype.startsWith = function (searchString, position) {
     position = position || 0;
     return this.substr(position, searchString.length) === searchString;
   };
@@ -443,7 +443,7 @@ if (!String.prototype.startsWith) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.trim) {
-  String.prototype.trim = function() {
+  String.prototype.trim = function () {
     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
   };
 }
