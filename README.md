@@ -2,7 +2,7 @@
 
 ## Polyfill includes:
 
-Array, Element, Function, Number, String
+Array, Element, Function, Number, String and Date
 
 ## Donate
 
