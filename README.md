@@ -10,6 +10,7 @@ Array.from
 Array.isArray
 Array.of
 Array.prototype.copyWithin
+Array.prototype.entries
 Array.prototype.every
 Array.prototype.fill
 Array.prototype.filter
@@ -20,12 +21,14 @@ Array.prototype.flatMap
 Array.prototype.forEach
 Array.prototype.includes
 Array.prototype.indexOf
+Array.prototype.keys
 Array.prototype.lastIndexOf
 Array.prototype.map
 Array.prototype.reduce
 Array.prototype.reduceRight
 Array.prototype.some
 Array.prototype.toLocaleString
+Array.prototype.values
 ```
 
 ### Date Polyfill:

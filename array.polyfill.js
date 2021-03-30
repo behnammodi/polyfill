@@ -201,24 +201,23 @@ if (!Array.prototype.copyWithin) {
  * Basic support	  38   	  28      (No)     	          25  	7.1     ?
  * -------------------------------------------------------------------------------
  */
-
-if( !Array.prototype.entries ) {
-  Array.prototype.entries = function() {
-
+if (!Array.prototype.entries) {
+  Array.prototype.entries = function () {
     function Iterator() { }
-    Iterator.prototype.next = function() {
-      if( index > arr.length-1 ) {
+
+    Iterator.prototype.next = function () {
+      if (index > selfThis.length - 1) {
         done = true;
       }
-      if( done ) {
-        return { value : undefined, done : true };
+      if (done) {
+        return { value: undefined, done: true };
       }
-      return { value : [ index, arr[index++] ], done : false };
+      return { value: [index, selfThis[index++]], done: false };
     }
 
-    const arr = this;
-    let index = 0;
-    let done;
+    var selfThis = this;
+    var index = 0;
+    var done;
 
     return new Iterator();
   }
@@ -732,24 +731,23 @@ if (!Array.prototype.indexOf) {
  * Basic support	  38      28      (No)    	          25    7.1     (Yes)
  * -------------------------------------------------------------------------------
  */
-
-if( !Array.prototype.keys ) {
-  Array.prototype.keys = function() {
-
+if (!Array.prototype.keys) {
+  Array.prototype.keys = function () {
     function Iterator() { }
-    Iterator.prototype.next = function() {
-      if( index > arr.length-1 ) {
+
+    Iterator.prototype.next = function () {
+      if (index > selfThis.length - 1) {
         done = true;
       }
-      if( done ) {
-        return { value : undefined, done : true };
+      if (done) {
+        return { value: undefined, done: true };
       }
-      return { value : index++, done : false };
+      return { value: index++, done: false };
     }
 
-    const arr = this;
-    let index = 0;
-    let done;
+    var selfThis = this;
+    var index = 0;
+    var done;
 
     return new Iterator();
   }
@@ -1202,24 +1200,23 @@ if (!Array.prototype.toLocaleString) {
  * Basic support  	(No)    (No)    (No)                (No)  9       (Yes)
  * -------------------------------------------------------------------------------
  */
-
-if( !Array.prototype.values ) {
-  Array.prototype.values = function() {
-
+if (!Array.prototype.values) {
+  Array.prototype.values = function () {
     function Iterator() { }
-    Iterator.prototype.next = function() {
-      if( index > arr.length-1 ) {
+
+    Iterator.prototype.next = function () {
+      if (index > selfThis.length - 1) {
         done = true;
       }
-      if( done ) {
-        return { value : undefined, done : true };
+      if (done) {
+        return { value: undefined, done: true };
       }
-      return { value : arr[index++], done : false };
+      return { value: selfThis[index++], done: false };
     }
 
-    const arr = this;
-    let index = 0;
-    let done;
+    var selfThis = this;
+    var index = 0;
+    var done;
 
     return new Iterator();
   }
