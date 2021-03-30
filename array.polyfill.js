@@ -202,6 +202,29 @@ if (!Array.prototype.copyWithin) {
  * -------------------------------------------------------------------------------
  */
 
+if( !Array.prototype.entries ) {
+  Array.prototype.entries = function() {
+
+    function Iterator() { }
+    Iterator.prototype.next = function() {
+      if( index > arr.length-1 ) {
+        done = true;
+      }
+      if( done ) {
+        return { value : undefined, done : true };
+      }
+      return { value : [ index, arr[index++] ], done : false };
+    }
+
+    const arr = this;
+    let index = 0;
+    let done;
+
+    return new Iterator();
+  }
+}
+
+
 /**
  * Array.prototype.every()
  * version 0.0.0
@@ -710,6 +733,29 @@ if (!Array.prototype.indexOf) {
  * -------------------------------------------------------------------------------
  */
 
+if( !Array.prototype.keys ) {
+  Array.prototype.keys = function() {
+
+    function Iterator() { }
+    Iterator.prototype.next = function() {
+      if( index > arr.length-1 ) {
+        done = true;
+      }
+      if( done ) {
+        return { value : undefined, done : true };
+      }
+      return { value : index++, done : false };
+    }
+
+    const arr = this;
+    let index = 0;
+    let done;
+
+    return new Iterator();
+  }
+}
+
+
 /**
  * Array.prototype.lastIndexOf()
  * version 0.0.0
@@ -1156,3 +1202,25 @@ if (!Array.prototype.toLocaleString) {
  * Basic support  	(No)    (No)    (No)                (No)  9       (Yes)
  * -------------------------------------------------------------------------------
  */
+
+if( !Array.prototype.values ) {
+  Array.prototype.values = function() {
+
+    function Iterator() { }
+    Iterator.prototype.next = function() {
+      if( index > arr.length-1 ) {
+        done = true;
+      }
+      if( done ) {
+        return { value : undefined, done : true };
+      }
+      return { value : arr[index++], done : false };
+    }
+
+    const arr = this;
+    let index = 0;
+    let done;
+
+    return new Iterator();
+  }
+}
