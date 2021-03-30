@@ -159,7 +159,10 @@ if (!String.prototype.codePointAt) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.endsWith) {
-  String.prototype.endsWith = function (searchString, position) {
+  Object.defineProperty(String.prototype, 'endsWith', {
+    configurable : true,
+    writable : true,
+    value : function (searchString, position) {
     var subjectString = this.toString();
     if (
       typeof position !== 'number' ||
@@ -172,7 +175,7 @@ if (!String.prototype.endsWith) {
     position -= searchString.length;
     var lastIndex = subjectString.lastIndexOf(searchString, position);
     return lastIndex !== -1 && lastIndex === position;
-  };
+    } });
 }
 
 /**
@@ -183,7 +186,10 @@ if (!String.prototype.endsWith) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.includes) {
-  String.prototype.includes = function (search, start) {
+  Object.defineProperty(String.prototype, 'includes', {
+    configurable : true,
+    writable : true,
+    value : function (search, start) {
     'use strict';
     if (typeof start !== 'number') {
       start = 0;
@@ -193,7 +199,7 @@ if (!String.prototype.includes) {
     } else {
       return this.indexOf(search, start) !== -1;
     }
-  };
+    } });
 }
 
 /**
@@ -255,7 +261,10 @@ if (!String.prototype.normalize) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.padEnd) {
-  String.prototype.padEnd = function padEnd(targetLength, padString) {
+  Object.defineProperty(String.prototype, 'padEnd', {
+    configurable : true,
+    writable : true,
+    value : function (targetLength, padString) {
     targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
     padString = String(typeof padString !== 'undefined' ? padString : ' ');
     if (this.length > targetLength) {
@@ -267,7 +276,7 @@ if (!String.prototype.padEnd) {
       }
       return String(this) + padString.slice(0, targetLength);
     }
-  };
+    } });
 }
 
 /**
@@ -278,7 +287,10 @@ if (!String.prototype.padEnd) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.padStart) {
-  String.prototype.padStart = function padStart(targetLength, padString) {
+  Object.defineProperty(String.prototype, 'padStart', {
+    configurable : true,
+    writable : true,
+    value : function (targetLength, padString) {
     targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
     padString = String(typeof padString !== 'undefined' ? padString : ' ');
     if (this.length > targetLength) {
@@ -290,7 +302,7 @@ if (!String.prototype.padStart) {
       }
       return padString.slice(0, targetLength) + String(this);
     }
-  };
+    } });
 }
 
 /**
@@ -301,7 +313,10 @@ if (!String.prototype.padStart) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.repeat) {
-  String.prototype.repeat = function (count) {
+  Object.defineProperty(String.prototype, 'repeat', {
+    configurable : true,
+    writable : true,
+    value : function (count) {
     'use strict';
     if (this == null) {
       throw new TypeError("can't convert " + this + ' to object');
@@ -338,7 +353,7 @@ if (!String.prototype.repeat) {
       str += str;
     }
     return rpt;
-  };
+    } });
 }
 
 /**
@@ -373,10 +388,13 @@ if (!String.prototype.repeat) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.startsWith) {
-  String.prototype.startsWith = function (searchString, position) {
+  Object.defineProperty(String.prototype, 'startsWith', {
+    configurable : true,
+    writable : true,
+    value : function (searchString, position) {
     position = position || 0;
     return this.substr(position, searchString.length) === searchString;
-  };
+    } });
 }
 
 /**
@@ -443,9 +461,13 @@ if (!String.prototype.startsWith) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.trim) {
-  String.prototype.trim = function () {
-    return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
-  };
+  Object.defineProperty(String.prototype, 'trim', {
+    configurable : true,
+    writable : true,
+    value : function () {
+      return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+    }
+  });
 }
 
 /**
