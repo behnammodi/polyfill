@@ -128,7 +128,10 @@ if (!Array.of) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.copyWithin) {
-  Array.prototype.copyWithin = function (target, start /*, end*/) {
+  Object.defineProperty(Array.prototype, 'copyWithin', {
+    configurable : true,
+    writable : true,
+    value : function (target, start /*, end*/) {
     // Steps 1-2.
     if (this == null) {
       throw new TypeError('this is null or not defined');
@@ -191,7 +194,7 @@ if (!Array.prototype.copyWithin) {
 
     // Step 19.
     return O;
-  };
+    } });
 }
 
 /**
@@ -203,7 +206,10 @@ if (!Array.prototype.copyWithin) {
  */
 
 if( !Array.prototype.entries ) {
-  Array.prototype.entries = function() {
+  Object.defineProperty(Array.prototype, 'entries', {
+    configurable : true,
+    writable : true,
+    value : function() {
 
     function Iterator() { }
     Iterator.prototype.next = function() {
@@ -221,7 +227,7 @@ if( !Array.prototype.entries ) {
     let done;
 
     return new Iterator();
-  }
+    } });
 }
 
 
@@ -233,7 +239,10 @@ if( !Array.prototype.entries ) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.every) {
-  Array.prototype.every = function (callbackfn, thisArg) {
+  Object.defineProperty(Array.prototype, 'every', {
+    configurable : true,
+    writable : true,
+    value :  function (callbackfn, thisArg) {
     'use strict';
     var T, k;
 
@@ -291,7 +300,7 @@ if (!Array.prototype.every) {
       k++;
     }
     return true;
-  };
+    } });
 }
 
 /**
@@ -303,6 +312,8 @@ if (!Array.prototype.every) {
  */
 if (!Array.prototype.fill) {
   Object.defineProperty(Array.prototype, 'fill', {
+    configurable : true,
+    writable : true,
     value: function (value) {
       // Steps 1-2.
       if (this == null) {
@@ -354,7 +365,10 @@ if (!Array.prototype.fill) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.filter) {
-  Array.prototype.filter = function (fun /*, thisArg*/) {
+  Object.defineProperty(Array.prototype, 'filter', {
+    configurable : true,
+    writable : true,
+    value : function (fun /*, thisArg*/) {
     'use strict';
 
     if (this === void 0 || this === null) {
@@ -385,7 +399,7 @@ if (!Array.prototype.filter) {
     }
 
     return res;
-  };
+    } });
 }
 
 /**
@@ -397,6 +411,8 @@ if (!Array.prototype.filter) {
  */
 if (!Array.prototype.find) {
   Object.defineProperty(Array.prototype, 'find', {
+    configurable : true,
+    writable : true,
     value: function (predicate) {
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
@@ -448,6 +464,8 @@ if (!Array.prototype.find) {
  */
 if (!Array.prototype.findIndex) {
   Object.defineProperty(Array.prototype, 'findIndex', {
+    configurable : true,
+    writable : true,
     value: function (predicate) {
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
@@ -498,7 +516,10 @@ if (!Array.prototype.findIndex) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.flat) {
-  Array.prototype.flat = function () {
+  Object.defineProperty(Array.prototype, 'flat', {
+    configurable : true,
+    writable : true,
+    value : function () {
     const stack = [].concat(this);
     const result = [];
     while (stack.length) {
@@ -507,7 +528,7 @@ if (!Array.prototype.flat) {
       else result.push(next);
     }
     return result.reverse();
-  };
+    } });
 }
 
 /**
@@ -518,9 +539,12 @@ if (!Array.prototype.flat) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.flatMap) {
-  Array.prototype.flatMap = function () {
+  Object.defineProperty(Array.prototype, 'flatMap', {
+    configurable : true,
+    writable : true,
+    value : function () {
     return Array.prototype.map.apply(this, arguments).flat(1);
-  };
+    } });
 }
 
 /**
@@ -531,7 +555,10 @@ if (!Array.prototype.flatMap) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.forEach) {
-  Array.prototype.forEach = function (callback /*, thisArg*/) {
+  Object.defineProperty(Array.prototype, 'forEach', {
+    configurable : true,
+    writable : true,
+    value : function (callback /*, thisArg*/) {
     var T, k;
 
     if (this == null) {
@@ -585,7 +612,7 @@ if (!Array.prototype.forEach) {
       k++;
     }
     // 8. return undefined
-  };
+    } });
 }
 
 /**
@@ -597,6 +624,8 @@ if (!Array.prototype.forEach) {
  */
 if (!Array.prototype.includes) {
   Object.defineProperty(Array.prototype, 'includes', {
+    configurable : true,
+    writable : true,
     value: function (searchElement, fromIndex) {
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
@@ -659,7 +688,10 @@ if (!Array.prototype.includes) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.indexOf) {
-  Array.prototype.indexOf = function (searchElement, fromIndex) {
+  Object.defineProperty(Array.prototype, 'indexOf', {
+    configurable : true,
+    writable : true,
+    value : function (searchElement, fromIndex) {
     var k;
 
     // 1. Let o be the result of calling ToObject passing
@@ -714,7 +746,7 @@ if (!Array.prototype.indexOf) {
       k++;
     }
     return -1;
-  };
+    } });
 }
 
 /**
@@ -734,7 +766,10 @@ if (!Array.prototype.indexOf) {
  */
 
 if( !Array.prototype.keys ) {
-  Array.prototype.keys = function() {
+  Object.defineProperty(Array.prototype, 'keys', {
+    configurable : true,
+    writable : true,
+    value :  function() {
 
     function Iterator() { }
     Iterator.prototype.next = function() {
@@ -752,7 +787,7 @@ if( !Array.prototype.keys ) {
     let done;
 
     return new Iterator();
-  }
+    } });
 }
 
 
@@ -764,7 +799,10 @@ if( !Array.prototype.keys ) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.lastIndexOf) {
-  Array.prototype.lastIndexOf = function (searchElement /*, fromIndex*/) {
+  Object.defineProperty(Array.prototype, 'lastIndexOf', {
+    configurable : true,
+    writable : true,
+    value : function (searchElement /*, fromIndex*/) {
     'use strict';
 
     if (this === void 0 || this === null) {
@@ -795,7 +833,7 @@ if (!Array.prototype.lastIndexOf) {
       }
     }
     return -1;
-  };
+    } });
 }
 
 /**
@@ -806,7 +844,10 @@ if (!Array.prototype.lastIndexOf) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.map) {
-  Array.prototype.map = function (callback /*, thisArg*/) {
+  Object.defineProperty(Array.prototype, 'map', {
+    configurable : true,
+    writable : true,
+    value : function (callback /*, thisArg*/) {
     var T, A, k;
 
     if (this == null) {
@@ -886,7 +927,7 @@ if (!Array.prototype.map) {
 
     // 9. return A
     return A;
-  };
+    } });
 }
 
 /**
@@ -914,6 +955,8 @@ if (!Array.prototype.map) {
  */
 if (!Array.prototype.reduce) {
   Object.defineProperty(Array.prototype, 'reduce', {
+    configurable : true,
+    writable : true,
     value: function (callback /*, initialValue*/) {
       if (this === null) {
         throw new TypeError(
@@ -982,7 +1025,10 @@ if (!Array.prototype.reduce) {
  * -------------------------------------------------------------------------------
  */
 if ('function' !== typeof Array.prototype.reduceRight) {
-  Array.prototype.reduceRight = function (callback /*, initialValue*/) {
+  Object.defineProperty(Array.prototype, 'reduceRight', {
+    configurable : true,
+    writable : true,
+    value : function (callback /*, initialValue*/) {
     'use strict';
     if (null === this || 'undefined' === typeof this) {
       throw new TypeError('Array.prototype.reduce called on null or undefined');
@@ -1011,7 +1057,7 @@ if ('function' !== typeof Array.prototype.reduceRight) {
       }
     }
     return value;
-  };
+    } });
 }
 
 /**
@@ -1046,7 +1092,10 @@ if ('function' !== typeof Array.prototype.reduceRight) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.some) {
-  Array.prototype.some = function (fun /*, thisArg*/) {
+  Object.defineProperty(Array.prototype, 'some', {
+    configurable : true,
+    writable : true,
+    value : function (fun /*, thisArg*/) {
     'use strict';
 
     if (this == null) {
@@ -1068,7 +1117,7 @@ if (!Array.prototype.some) {
     }
 
     return false;
-  };
+    } });
 }
 
 /**
@@ -1096,6 +1145,8 @@ if (!Array.prototype.some) {
  */
 if (!Array.prototype.toLocaleString) {
   Object.defineProperty(Array.prototype, 'toLocaleString', {
+    configurable : true,
+    writable : true,
     value: function (locales, options) {
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
@@ -1204,7 +1255,10 @@ if (!Array.prototype.toLocaleString) {
  */
 
 if( !Array.prototype.values ) {
-  Array.prototype.values = function() {
+  Object.defineProperty(Array.prototype, 'values', {
+    configurable : true,
+    writable : true,
+    value : function() {
 
     function Iterator() { }
     Iterator.prototype.next = function() {
@@ -1222,5 +1276,5 @@ if( !Array.prototype.values ) {
     let done;
 
     return new Iterator();
-  }
+    } });
 }
