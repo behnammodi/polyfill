@@ -6,7 +6,10 @@
  * -------------------------------------------------------------------------------
  */
 if (!Date.prototype.toISOString) {
-  Date.prototype.toISOString = function () {
+  Object.defineProperty(Array.prototype, 'toISOString', {
+    configurable : true,
+    writable : true,
+    value :  function () {
     function pad(number) {
       if (number < 10) {
         return '0' + number;
@@ -22,5 +25,5 @@ if (!Date.prototype.toISOString) {
       ':' + pad(this.getUTCSeconds()) +
       '.' + (this.getUTCMilliseconds() / 1000).toFixed(3).slice(2, 5) +
       'Z';
-  };
+    } });
 }
