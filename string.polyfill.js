@@ -163,19 +163,20 @@ if (!String.prototype.endsWith) {
     configurable : true,
     writable : true,
     value : function (searchString, position) {
-    var subjectString = this.toString();
-    if (
-      typeof position !== 'number' ||
-      !isFinite(position) ||
-      Math.floor(position) !== position ||
-      position > subjectString.length
-    ) {
-      position = subjectString.length;
+      var subjectString = this.toString();
+      if (
+        typeof position !== 'number' ||
+          !isFinite(position) ||
+          Math.floor(position) !== position ||
+          position > subjectString.length
+      ) {
+        position = subjectString.length;
+      }
+      position -= searchString.length;
+      var lastIndex = subjectString.lastIndexOf(searchString, position);
+      return lastIndex !== -1 && lastIndex === position;
     }
-    position -= searchString.length;
-    var lastIndex = subjectString.lastIndexOf(searchString, position);
-    return lastIndex !== -1 && lastIndex === position;
-    } });
+  });
 }
 
 /**
@@ -190,16 +191,17 @@ if (!String.prototype.includes) {
     configurable : true,
     writable : true,
     value : function (search, start) {
-    'use strict';
-    if (typeof start !== 'number') {
-      start = 0;
+      'use strict';
+      if (typeof start !== 'number') {
+        start = 0;
+      }
+      if (start + search.length > this.length) {
+        return false;
+      } else {
+        return this.indexOf(search, start) !== -1;
+      }
     }
-    if (start + search.length > this.length) {
-      return false;
-    } else {
-      return this.indexOf(search, start) !== -1;
-    }
-    } });
+  });
 }
 
 /**
@@ -265,18 +267,19 @@ if (!String.prototype.padEnd) {
     configurable : true,
     writable : true,
     value : function (targetLength, padString) {
-    targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
-    padString = String(typeof padString !== 'undefined' ? padString : ' ');
-    if (this.length > targetLength) {
-      return String(this);
-    } else {
-      targetLength = targetLength - this.length;
-      if (targetLength > padString.length) {
-        padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
+      targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
+      padString = String(typeof padString !== 'undefined' ? padString : ' ');
+      if (this.length > targetLength) {
+        return String(this);
+      } else {
+        targetLength = targetLength - this.length;
+        if (targetLength > padString.length) {
+          padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
+        }
+        return String(this) + padString.slice(0, targetLength);
       }
-      return String(this) + padString.slice(0, targetLength);
     }
-    } });
+  });
 }
 
 /**
@@ -291,18 +294,19 @@ if (!String.prototype.padStart) {
     configurable : true,
     writable : true,
     value : function (targetLength, padString) {
-    targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
-    padString = String(typeof padString !== 'undefined' ? padString : ' ');
-    if (this.length > targetLength) {
-      return String(this);
-    } else {
-      targetLength = targetLength - this.length;
-      if (targetLength > padString.length) {
-        padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
+      targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
+      padString = String(typeof padString !== 'undefined' ? padString : ' ');
+      if (this.length > targetLength) {
+        return String(this);
+      } else {
+        targetLength = targetLength - this.length;
+        if (targetLength > padString.length) {
+          padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
+        }
+        return padString.slice(0, targetLength) + String(this);
       }
-      return padString.slice(0, targetLength) + String(this);
     }
-    } });
+  });
 }
 
 /**
@@ -317,43 +321,44 @@ if (!String.prototype.repeat) {
     configurable : true,
     writable : true,
     value : function (count) {
-    'use strict';
-    if (this == null) {
-      throw new TypeError("can't convert " + this + ' to object');
-    }
-    var str = '' + this;
-    count = +count;
-    if (count != count) {
-      count = 0;
-    }
-    if (count < 0) {
-      throw new RangeError('repeat count must be non-negative');
-    }
-    if (count == Infinity) {
-      throw new RangeError('repeat count must be less than infinity');
-    }
-    count = Math.floor(count);
-    if (str.length == 0 || count == 0) {
-      return '';
-    }
-    if (str.length * count >= 1 << 28) {
-      throw new RangeError(
-        'repeat count must not overflow maximum string size'
-      );
-    }
-    var rpt = '';
-    for (; ;) {
-      if ((count & 1) == 1) {
-        rpt += str;
+      'use strict';
+      if (this == null) {
+        throw new TypeError("can't convert " + this + ' to object');
       }
-      count >>>= 1;
-      if (count == 0) {
-        break;
+      var str = '' + this;
+      count = +count;
+      if (count != count) {
+        count = 0;
       }
-      str += str;
+      if (count < 0) {
+        throw new RangeError('repeat count must be non-negative');
+      }
+      if (count == Infinity) {
+        throw new RangeError('repeat count must be less than infinity');
+      }
+      count = Math.floor(count);
+      if (str.length == 0 || count == 0) {
+        return '';
+      }
+      if (str.length * count >= 1 << 28) {
+        throw new RangeError(
+          'repeat count must not overflow maximum string size'
+        );
+      }
+      var rpt = '';
+      for (; ;) {
+        if ((count & 1) == 1) {
+          rpt += str;
+        }
+        count >>>= 1;
+        if (count == 0) {
+          break;
+        }
+        str += str;
+      }
+      return rpt;
     }
-    return rpt;
-    } });
+  });
 }
 
 /**
@@ -392,9 +397,10 @@ if (!String.prototype.startsWith) {
     configurable : true,
     writable : true,
     value : function (searchString, position) {
-    position = position || 0;
-    return this.substr(position, searchString.length) === searchString;
-    } });
+      position = position || 0;
+      return this.substr(position, searchString.length) === searchString;
+    }
+  });
 }
 
 /**
