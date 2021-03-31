@@ -1,3 +1,6 @@
+
+'use strict';
+
 /**
  * Number.isInteger()
  * version 0.0.0

@@ -1,3 +1,6 @@
+
+'use strict';
+
 /**
  * Element.
  * version 0.0.0
