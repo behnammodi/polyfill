@@ -205,26 +205,23 @@ if (!Array.prototype.copyWithin) {
  * Basic support	  38   	  28      (No)     	          25  	7.1     ?
  * -------------------------------------------------------------------------------
  */
-
 if (!Array.prototype.entries) {
-  Object.defineProperty(Array.prototype, 'entries', {
-    configurable: true,
-    writable: true,
-    value: function () {
-      function Iterator() {}
-      Iterator.prototype.next = function () {
-        if (index > arr.length - 1) {
-          done = true;
-        }
-        if (done) {
-          return { value: undefined, done: true };
-        }
-        return { value: [index, arr[index++]], done: false };
-      };
+  Array.prototype.entries = function () {
+    function Iterator() { }
 
-      const arr = this;
-      let index = 0;
-      let done;
+    Iterator.prototype.next = function () {
+      if (index > selfThis.length - 1) {
+        done = true;
+      }
+      if (done) {
+        return { value: undefined, done: true };
+      }
+      return { value: [index, selfThis[index++]], done: false };
+    }
+
+    var selfThis = this;
+    var index = 0;
+    var done;
 
       return new Iterator();
     },
@@ -773,26 +770,23 @@ if (!Array.prototype.indexOf) {
  * Basic support	  38      28      (No)    	          25    7.1     (Yes)
  * -------------------------------------------------------------------------------
  */
-
 if (!Array.prototype.keys) {
-  Object.defineProperty(Array.prototype, 'keys', {
-    configurable: true,
-    writable: true,
-    value: function () {
-      function Iterator() {}
-      Iterator.prototype.next = function () {
-        if (index > arr.length - 1) {
-          done = true;
-        }
-        if (done) {
-          return { value: undefined, done: true };
-        }
-        return { value: index++, done: false };
-      };
+  Array.prototype.keys = function () {
+    function Iterator() { }
 
-      const arr = this;
-      let index = 0;
-      let done;
+    Iterator.prototype.next = function () {
+      if (index > selfThis.length - 1) {
+        done = true;
+      }
+      if (done) {
+        return { value: undefined, done: true };
+      }
+      return { value: index++, done: false };
+    }
+
+    var selfThis = this;
+    var index = 0;
+    var done;
 
       return new Iterator();
     },
@@ -1267,26 +1261,23 @@ if (!Array.prototype.toLocaleString) {
  * Basic support  	(No)    (No)    (No)                (No)  9       (Yes)
  * -------------------------------------------------------------------------------
  */
-
 if (!Array.prototype.values) {
-  Object.defineProperty(Array.prototype, 'values', {
-    configurable: true,
-    writable: true,
-    value: function () {
-      function Iterator() {}
-      Iterator.prototype.next = function () {
-        if (index > arr.length - 1) {
-          done = true;
-        }
-        if (done) {
-          return { value: undefined, done: true };
-        }
-        return { value: arr[index++], done: false };
-      };
+  Array.prototype.values = function () {
+    function Iterator() { }
 
-      const arr = this;
-      let index = 0;
-      let done;
+    Iterator.prototype.next = function () {
+      if (index > selfThis.length - 1) {
+        done = true;
+      }
+      if (done) {
+        return { value: undefined, done: true };
+      }
+      return { value: selfThis[index++], done: false };
+    }
+
+    var selfThis = this;
+    var index = 0;
+    var done;
 
       return new Iterator();
     },
