@@ -128,70 +128,74 @@ if (!Array.of) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.copyWithin) {
-  Array.prototype.copyWithin = function (target, start /*, end*/) {
-    // Steps 1-2.
-    if (this == null) {
-      throw new TypeError('this is null or not defined');
-    }
-
-    var O = Object(this);
-
-    // Steps 3-5.
-    var len = O.length >>> 0;
-
-    // Steps 6-8.
-    var relativeTarget = target >> 0;
-
-    var to =
-      relativeTarget < 0
-        ? Math.max(len + relativeTarget, 0)
-        : Math.min(relativeTarget, len);
-
-    // Steps 9-11.
-    var relativeStart = start >> 0;
-
-    var from =
-      relativeStart < 0
-        ? Math.max(len + relativeStart, 0)
-        : Math.min(relativeStart, len);
-
-    // Steps 12-14.
-    var end = arguments[2];
-    var relativeEnd = end === undefined ? len : end >> 0;
-
-    var final =
-      relativeEnd < 0
-        ? Math.max(len + relativeEnd, 0)
-        : Math.min(relativeEnd, len);
-
-    // Step 15.
-    var count = Math.min(final - from, len - to);
-
-    // Steps 16-17.
-    var direction = 1;
-
-    if (from < to && to < from + count) {
-      direction = -1;
-      from += count - 1;
-      to += count - 1;
-    }
-
-    // Step 18.
-    while (count > 0) {
-      if (from in O) {
-        O[to] = O[from];
-      } else {
-        delete O[to];
+  Object.defineProperty(Array.prototype, 'copyWithin', {
+    configurable: true,
+    writable: true,
+    value: function (target, start /*, end*/) {
+      // Steps 1-2.
+      if (this == null) {
+        throw new TypeError('this is null or not defined');
       }
 
-      from += direction;
-      to += direction;
-      count--;
-    }
+      var O = Object(this);
 
-    // Step 19.
-    return O;
-  };
+      // Steps 3-5.
+      var len = O.length >>> 0;
+
+      // Steps 6-8.
+      var relativeTarget = target >> 0;
+
+      var to =
+        relativeTarget < 0
+          ? Math.max(len + relativeTarget, 0)
+          : Math.min(relativeTarget, len);
+
+      // Steps 9-11.
+      var relativeStart = start >> 0;
+
+      var from =
+        relativeStart < 0
+          ? Math.max(len + relativeStart, 0)
+          : Math.min(relativeStart, len);
+
+      // Steps 12-14.
+      var end = arguments[2];
+      var relativeEnd = end === undefined ? len : end >> 0;
+
+      var final =
+        relativeEnd < 0
+          ? Math.max(len + relativeEnd, 0)
+          : Math.min(relativeEnd, len);
+
+      // Step 15.
+      var count = Math.min(final - from, len - to);
+
+      // Steps 16-17.
+      var direction = 1;
+
+      if (from < to && to < from + count) {
+        direction = -1;
+        from += count - 1;
+        to += count - 1;
+      }
+
+      // Step 18.
+      while (count > 0) {
+        if (from in O) {
+          O[to] = O[from];
+        } else {
+          delete O[to];
+        }
+
+        from += direction;
+        to += direction;
+        count--;
+      }
+
+      // Step 19.
+      return O;
+    },
+  });
 }
 
 /**
@@ -203,7 +207,7 @@ if (!Array.prototype.copyWithin) {
  */
 if (!Array.prototype.entries) {
   Array.prototype.entries = function () {
-    function Iterator() { }
+    function Iterator() {}
 
     Iterator.prototype.next = function () {
       if (index > selfThis.length - 1) {
@@ -213,39 +217,15 @@ if (!Array.prototype.entries) {
         return { value: undefined, done: true };
       }
       return { value: [index, selfThis[index++]], done: false };
-    }
+    };
 
     var selfThis = this;
     var index = 0;
     var done;
 
     return new Iterator();
-  }
+  };
 }
-
-
-if( !Array.prototype.entries ) {
-  Array.prototype.entries = function() {
-
-    function Iterator() { }
-    Iterator.prototype.next = function() {
-      if( index > selfThis.length-1 ) {
-        done = true;
-      }
-      if( done ) {
-        return { value : undefined, done : true };
-      }
-      return { value : [ index, selfThis[index++] ], done : false };
-    }
-
-    var selfThis = this;
-    var index = 0;
-    var done;
-
-    return new Iterator();
-  }
-}
-
 
 /**
  * Array.prototype.every()
@@ -255,65 +235,69 @@ if( !Array.prototype.entries ) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.every) {
-  Array.prototype.every = function (callbackfn, thisArg) {
-    'use strict';
-    var T, k;
+  Object.defineProperty(Array.prototype, 'every', {
+    configurable: true,
+    writable: true,
+    value: function (callbackfn, thisArg) {
+      'use strict';
+      var T, k;
 
-    if (this == null) {
-      throw new TypeError('this is null or not defined');
-    }
-
-    // 1. Let O be the result of calling ToObject passing the this
-    //    value as the argument.
-    var O = Object(this);
-
-    // 2. Let lenValue be the result of calling the Get internal method
-    //    of O with the argument "length".
-    // 3. Let len be ToUint32(lenValue).
-    var len = O.length >>> 0;
-
-    // 4. If IsCallable(callbackfn) is false, throw a TypeError exception.
-    if (typeof callbackfn !== 'function') {
-      throw new TypeError();
-    }
-
-    // 5. If thisArg was supplied, let T be thisArg; else let T be undefined.
-    if (arguments.length > 1) {
-      T = thisArg;
-    }
-
-    // 6. Let k be 0.
-    k = 0;
-
-    // 7. Repeat, while k < len
-    while (k < len) {
-      var kValue;
-
-      // a. Let Pk be ToString(k).
-      //   This is implicit for LHS operands of the in operator
-      // b. Let kPresent be the result of calling the HasProperty internal
-      //    method of O with argument Pk.
-      //   This step can be combined with c
-      // c. If kPresent is true, then
-      if (k in O) {
-        // i. Let kValue be the result of calling the Get internal method
-        //    of O with argument Pk.
-        kValue = O[k];
-
-        // ii. Let testResult be the result of calling the Call internal method
-        //     of callbackfn with T as the this value and argument list
-        //     containing kValue, k, and O.
-        var testResult = callbackfn.call(T, kValue, k, O);
-
-        // iii. If ToBoolean(testResult) is false, return false.
-        if (!testResult) {
-          return false;
-        }
+      if (this == null) {
+        throw new TypeError('this is null or not defined');
       }
-      k++;
-    }
-    return true;
-  };
+
+      // 1. Let O be the result of calling ToObject passing the this
+      //    value as the argument.
+      var O = Object(this);
+
+      // 2. Let lenValue be the result of calling the Get internal method
+      //    of O with the argument "length".
+      // 3. Let len be ToUint32(lenValue).
+      var len = O.length >>> 0;
+
+      // 4. If IsCallable(callbackfn) is false, throw a TypeError exception.
+      if (typeof callbackfn !== 'function') {
+        throw new TypeError();
+      }
+
+      // 5. If thisArg was supplied, let T be thisArg; else let T be undefined.
+      if (arguments.length > 1) {
+        T = thisArg;
+      }
+
+      // 6. Let k be 0.
+      k = 0;
+
+      // 7. Repeat, while k < len
+      while (k < len) {
+        var kValue;
+
+        // a. Let Pk be ToString(k).
+        //   This is implicit for LHS operands of the in operator
+        // b. Let kPresent be the result of calling the HasProperty internal
+        //    method of O with argument Pk.
+        //   This step can be combined with c
+        // c. If kPresent is true, then
+        if (k in O) {
+          // i. Let kValue be the result of calling the Get internal method
+          //    of O with argument Pk.
+          kValue = O[k];
+
+          // ii. Let testResult be the result of calling the Call internal method
+          //     of callbackfn with T as the this value and argument list
+          //     containing kValue, k, and O.
+          var testResult = callbackfn.call(T, kValue, k, O);
+
+          // iii. If ToBoolean(testResult) is false, return false.
+          if (!testResult) {
+            return false;
+          }
+        }
+        k++;
+      }
+      return true;
+    },
+  });
 }
 
 /**
@@ -325,6 +309,8 @@ if (!Array.prototype.every) {
  */
 if (!Array.prototype.fill) {
   Object.defineProperty(Array.prototype, 'fill', {
+    configurable: true,
+    writable: true,
     value: function (value) {
       // Steps 1-2.
       if (this == null) {
@@ -364,7 +350,7 @@ if (!Array.prototype.fill) {
 
       // Step 13.
       return O;
-    }
+    },
   });
 }
 
@@ -376,38 +362,42 @@ if (!Array.prototype.fill) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.filter) {
-  Array.prototype.filter = function (fun /*, thisArg*/) {
-    'use strict';
+  Object.defineProperty(Array.prototype, 'filter', {
+    configurable: true,
+    writable: true,
+    value: function (fun /*, thisArg*/) {
+      'use strict';
 
-    if (this === void 0 || this === null) {
-      throw new TypeError();
-    }
+      if (this === void 0 || this === null) {
+        throw new TypeError();
+      }
 
-    var t = Object(this);
-    var len = t.length >>> 0;
-    if (typeof fun !== 'function') {
-      throw new TypeError();
-    }
+      var t = Object(this);
+      var len = t.length >>> 0;
+      if (typeof fun !== 'function') {
+        throw new TypeError();
+      }
 
-    var res = [];
-    var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
-    for (var i = 0; i < len; i++) {
-      if (i in t) {
-        var val = t[i];
+      var res = [];
+      var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+      for (var i = 0; i < len; i++) {
+        if (i in t) {
+          var val = t[i];
 
-        // NOTE: Technically this should Object.defineProperty at
-        //       the next index, as push can be affected by
-        //       properties on Object.prototype and Array.prototype.
-        //       But that method's new, and collisions should be
-        //       rare, so use the more-compatible alternative.
-        if (fun.call(thisArg, val, i, t)) {
-          res.push(val);
+          // NOTE: Technically this should Object.defineProperty at
+          //       the next index, as push can be affected by
+          //       properties on Object.prototype and Array.prototype.
+          //       But that method's new, and collisions should be
+          //       rare, so use the more-compatible alternative.
+          if (fun.call(thisArg, val, i, t)) {
+            res.push(val);
+          }
         }
       }
-    }
 
-    return res;
-  };
+      return res;
+    },
+  });
 }
 
 /**
@@ -419,6 +409,8 @@ if (!Array.prototype.filter) {
  */
 if (!Array.prototype.find) {
   Object.defineProperty(Array.prototype, 'find', {
+    configurable: true,
+    writable: true,
     value: function (predicate) {
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
@@ -457,7 +449,7 @@ if (!Array.prototype.find) {
 
       // 7. Return undefined.
       return undefined;
-    }
+    },
   });
 }
 
@@ -470,6 +462,8 @@ if (!Array.prototype.find) {
  */
 if (!Array.prototype.findIndex) {
   Object.defineProperty(Array.prototype, 'findIndex', {
+    configurable: true,
+    writable: true,
     value: function (predicate) {
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
@@ -508,7 +502,7 @@ if (!Array.prototype.findIndex) {
 
       // 7. Return -1.
       return -1;
-    }
+    },
   });
 }
 
@@ -520,16 +514,23 @@ if (!Array.prototype.findIndex) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.flat) {
-  Array.prototype.flat = function () {
-    var stack = [].concat(this);
-    var result = [];
-    while (stack.length) {
-      var next = stack.pop();
-      if (Array.isArray(next)) stack.push.apply(stack, next);
-      else result.push(next);
-    }
-    return result.reverse();
-  };
+  Object.defineProperty(Array.prototype, 'flat', {
+    configurable: true,
+    writable: true,
+    value: function () {
+      const stack = [].concat(this);
+      const result = [];
+      while (stack.length) {
+        const next = stack.pop();
+        if (Array.isArray(next)) {
+          stack.push.apply(stack, next);
+        } else {
+          result.push(next);
+        }
+      }
+      return result.reverse();
+    },
+  });
 }
 
 /**
@@ -540,9 +541,13 @@ if (!Array.prototype.flat) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.flatMap) {
-  Array.prototype.flatMap = function () {
-    return Array.prototype.map.apply(this, arguments).flat(1);
-  };
+  Object.defineProperty(Array.prototype, 'flatMap', {
+    configurable: true,
+    writable: true,
+    value: function () {
+      return Array.prototype.map.apply(this, arguments).flat(1);
+    },
+  });
 }
 
 /**
@@ -553,61 +558,65 @@ if (!Array.prototype.flatMap) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.forEach) {
-  Array.prototype.forEach = function (callback /*, thisArg*/) {
-    var T, k;
+  Object.defineProperty(Array.prototype, 'forEach', {
+    configurable: true,
+    writable: true,
+    value: function (callback /*, thisArg*/) {
+      var T, k;
 
-    if (this == null) {
-      throw new TypeError('this is null or not defined');
-    }
-
-    // 1. Let O be the result of calling toObject() passing the
-    // |this| value as the argument.
-    var O = Object(this);
-
-    // 2. Let lenValue be the result of calling the Get() internal
-    // method of O with the argument "length".
-    // 3. Let len be toUint32(lenValue).
-    var len = O.length >>> 0;
-
-    // 4. If isCallable(callback) is false, throw a TypeError exception.
-    // See: http://es5.github.com/#x9.11
-    if (typeof callback !== 'function') {
-      throw new TypeError(callback + ' is not a function');
-    }
-
-    // 5. If thisArg was supplied, let T be thisArg; else let
-    // T be undefined.
-    if (arguments.length > 1) {
-      T = arguments[1];
-    }
-
-    // 6. Let k be 0
-    k = 0;
-
-    // 7. Repeat, while k < len
-    while (k < len) {
-      var kValue;
-
-      // a. Let Pk be ToString(k).
-      //    This is implicit for LHS operands of the in operator
-      // b. Let kPresent be the result of calling the HasProperty
-      //    internal method of O with argument Pk.
-      //    This step can be combined with c
-      // c. If kPresent is true, then
-      if (k in O) {
-        // i. Let kValue be the result of calling the Get internal
-        // method of O with argument Pk.
-        kValue = O[k];
-
-        // ii. Call the Call internal method of callback with T as
-        // the this value and argument list containing kValue, k, and O.
-        callback.call(T, kValue, k, O);
+      if (this == null) {
+        throw new TypeError('this is null or not defined');
       }
-      // d. Increase k by 1.
-      k++;
-    }
-    // 8. return undefined
-  };
+
+      // 1. Let O be the result of calling toObject() passing the
+      // |this| value as the argument.
+      var O = Object(this);
+
+      // 2. Let lenValue be the result of calling the Get() internal
+      // method of O with the argument "length".
+      // 3. Let len be toUint32(lenValue).
+      var len = O.length >>> 0;
+
+      // 4. If isCallable(callback) is false, throw a TypeError exception.
+      // See: http://es5.github.com/#x9.11
+      if (typeof callback !== 'function') {
+        throw new TypeError(callback + ' is not a function');
+      }
+
+      // 5. If thisArg was supplied, let T be thisArg; else let
+      // T be undefined.
+      if (arguments.length > 1) {
+        T = arguments[1];
+      }
+
+      // 6. Let k be 0
+      k = 0;
+
+      // 7. Repeat, while k < len
+      while (k < len) {
+        var kValue;
+
+        // a. Let Pk be ToString(k).
+        //    This is implicit for LHS operands of the in operator
+        // b. Let kPresent be the result of calling the HasProperty
+        //    internal method of O with argument Pk.
+        //    This step can be combined with c
+        // c. If kPresent is true, then
+        if (k in O) {
+          // i. Let kValue be the result of calling the Get internal
+          // method of O with argument Pk.
+          kValue = O[k];
+
+          // ii. Call the Call internal method of callback with T as
+          // the this value and argument list containing kValue, k, and O.
+          callback.call(T, kValue, k, O);
+        }
+        // d. Increase k by 1.
+        k++;
+      }
+      // 8. return undefined
+    },
+  });
 }
 
 /**
@@ -619,6 +628,8 @@ if (!Array.prototype.forEach) {
  */
 if (!Array.prototype.includes) {
   Object.defineProperty(Array.prototype, 'includes', {
+    configurable: true,
+    writable: true,
     value: function (searchElement, fromIndex) {
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
@@ -669,7 +680,7 @@ if (!Array.prototype.includes) {
 
       // 8. Return false
       return false;
-    }
+    },
   });
 }
 
@@ -681,62 +692,66 @@ if (!Array.prototype.includes) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.indexOf) {
-  Array.prototype.indexOf = function (searchElement, fromIndex) {
-    var k;
+  Object.defineProperty(Array.prototype, 'indexOf', {
+    configurable: true,
+    writable: true,
+    value: function (searchElement, fromIndex) {
+      var k;
 
-    // 1. Let o be the result of calling ToObject passing
-    //    the this value as the argument.
-    if (this == null) {
-      throw new TypeError('"this" is null or not defined');
-    }
-
-    var o = Object(this);
-
-    // 2. Let lenValue be the result of calling the Get
-    //    internal method of o with the argument "length".
-    // 3. Let len be ToUint32(lenValue).
-    var len = o.length >>> 0;
-
-    // 4. If len is 0, return -1.
-    if (len === 0) {
-      return -1;
-    }
-
-    // 5. If argument fromIndex was passed let n be
-    //    ToInteger(fromIndex); else let n be 0.
-    var n = fromIndex | 0;
-
-    // 6. If n >= len, return -1.
-    if (n >= len) {
-      return -1;
-    }
-
-    // 7. If n >= 0, then Let k be n.
-    // 8. Else, n<0, Let k be len - abs(n).
-    //    If k is less than 0, then let k be 0.
-    k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
-
-    // 9. Repeat, while k < len
-    while (k < len) {
-      // a. Let Pk be ToString(k).
-      //   This is implicit for LHS operands of the in operator
-      // b. Let kPresent be the result of calling the
-      //    HasProperty internal method of o with argument Pk.
-      //   This step can be combined with c
-      // c. If kPresent is true, then
-      //    i.  Let elementK be the result of calling the Get
-      //        internal method of o with the argument ToString(k).
-      //   ii.  Let same be the result of applying the
-      //        Strict Equality Comparison Algorithm to
-      //        searchElement and elementK.
-      //  iii.  If same is true, return k.
-      if (k in o && o[k] === searchElement) {
-        return k;
+      // 1. Let o be the result of calling ToObject passing
+      //    the this value as the argument.
+      if (this == null) {
+        throw new TypeError('"this" is null or not defined');
       }
-      k++;
-    }
-    return -1;
-  };
+
+      var o = Object(this);
+
+      // 2. Let lenValue be the result of calling the Get
+      //    internal method of o with the argument "length".
+      // 3. Let len be ToUint32(lenValue).
+      var len = o.length >>> 0;
+
+      // 4. If len is 0, return -1.
+      if (len === 0) {
+        return -1;
+      }
+
+      // 5. If argument fromIndex was passed let n be
+      //    ToInteger(fromIndex); else let n be 0.
+      var n = fromIndex | 0;
+
+      // 6. If n >= len, return -1.
+      if (n >= len) {
+        return -1;
+      }
+
+      // 7. If n >= 0, then Let k be n.
+      // 8. Else, n<0, Let k be len - abs(n).
+      //    If k is less than 0, then let k be 0.
+      k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
+
+      // 9. Repeat, while k < len
+      while (k < len) {
+        // a. Let Pk be ToString(k).
+        //   This is implicit for LHS operands of the in operator
+        // b. Let kPresent be the result of calling the
+        //    HasProperty internal method of o with argument Pk.
+        //   This step can be combined with c
+        // c. If kPresent is true, then
+        //    i.  Let elementK be the result of calling the Get
+        //        internal method of o with the argument ToString(k).
+        //   ii.  Let same be the result of applying the
+        //        Strict Equality Comparison Algorithm to
+        //        searchElement and elementK.
+        //  iii.  If same is true, return k.
+        if (k in o && o[k] === searchElement) {
+          return k;
+        }
+        k++;
+      }
+      return -1;
+    },
+  });
 }
 
 /**
@@ -756,7 +771,7 @@ if (!Array.prototype.indexOf) {
  */
 if (!Array.prototype.keys) {
   Array.prototype.keys = function () {
-    function Iterator() { }
+    function Iterator() {}
 
     Iterator.prototype.next = function () {
       if (index > selfThis.length - 1) {
@@ -766,39 +781,15 @@ if (!Array.prototype.keys) {
         return { value: undefined, done: true };
       }
       return { value: index++, done: false };
-    }
+    };
 
     var selfThis = this;
     var index = 0;
     var done;
 
     return new Iterator();
-  }
+  };
 }
-
-
-if( !Array.prototype.keys ) {
-  Array.prototype.keys = function() {
-
-    function Iterator() { }
-    Iterator.prototype.next = function() {
-      if( index > selfThis.length-1 ) {
-        done = true;
-      }
-      if( done ) {
-        return { value : undefined, done : true };
-      }
-      return { value : index++, done : false };
-    }
-
-    var selfThis = this;
-    var index = 0;
-    var done;
-
-    return new Iterator();
-  }
-}
-
 
 /**
  * Array.prototype.lastIndexOf()
@@ -808,38 +799,42 @@ if( !Array.prototype.keys ) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.lastIndexOf) {
-  Array.prototype.lastIndexOf = function (searchElement /*, fromIndex*/) {
-    'use strict';
+  Object.defineProperty(Array.prototype, 'lastIndexOf', {
+    configurable: true,
+    writable: true,
+    value: function (searchElement /*, fromIndex*/) {
+      'use strict';
 
-    if (this === void 0 || this === null) {
-      throw new TypeError();
-    }
+      if (this === void 0 || this === null) {
+        throw new TypeError();
+      }
 
-    var n,
-      k,
-      t = Object(this),
-      len = t.length >>> 0;
-    if (len === 0) {
+      var n,
+        k,
+        t = Object(this),
+        len = t.length >>> 0;
+      if (len === 0) {
+        return -1;
+      }
+
+      n = len - 1;
+      if (arguments.length > 1) {
+        n = Number(arguments[1]);
+        if (n != n) {
+          n = 0;
+        } else if (n != 0 && n != 1 / 0 && n != -(1 / 0)) {
+          n = (n > 0 || -1) * Math.floor(Math.abs(n));
+        }
+      }
+
+      for (k = n >= 0 ? Math.min(n, len - 1) : len - Math.abs(n); k >= 0; k--) {
+        if (k in t && t[k] === searchElement) {
+          return k;
+        }
+      }
       return -1;
-    }
-
-    n = len - 1;
-    if (arguments.length > 1) {
-      n = Number(arguments[1]);
-      if (n != n) {
-        n = 0;
-      } else if (n != 0 && n != 1 / 0 && n != -(1 / 0)) {
-        n = (n > 0 || -1) * Math.floor(Math.abs(n));
-      }
-    }
-
-    for (k = n >= 0 ? Math.min(n, len - 1) : len - Math.abs(n); k >= 0; k--) {
-      if (k in t && t[k] === searchElement) {
-        return k;
-      }
-    }
-    return -1;
-  };
+    },
+  });
 }
 
 /**
@@ -850,87 +845,91 @@ if (!Array.prototype.lastIndexOf) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.map) {
-  Array.prototype.map = function (callback /*, thisArg*/) {
-    var T, A, k;
+  Object.defineProperty(Array.prototype, 'map', {
+    configurable: true,
+    writable: true,
+    value: function (callback /*, thisArg*/) {
+      var T, A, k;
 
-    if (this == null) {
-      throw new TypeError('this is null or not defined');
-    }
-
-    // 1. Let O be the result of calling ToObject passing the |this|
-    //    value as the argument.
-    var O = Object(this);
-
-    // 2. Let lenValue be the result of calling the Get internal
-    //    method of O with the argument "length".
-    // 3. Let len be ToUint32(lenValue).
-    var len = O.length >>> 0;
-
-    // 4. If IsCallable(callback) is false, throw a TypeError exception.
-    // See: http://es5.github.com/#x9.11
-    if (typeof callback !== 'function') {
-      throw new TypeError(callback + ' is not a function');
-    }
-
-    // 5. If thisArg was supplied, let T be thisArg; else let T be undefined.
-    if (arguments.length > 1) {
-      T = arguments[1];
-    }
-
-    // 6. Let A be a new array created as if by the expression new Array(len)
-    //    where Array is the standard built-in constructor with that name and
-    //    len is the value of len.
-    A = new Array(len);
-
-    // 7. Let k be 0
-    k = 0;
-
-    // 8. Repeat, while k < len
-    while (k < len) {
-      var kValue, mappedValue;
-
-      // a. Let Pk be ToString(k).
-      //   This is implicit for LHS operands of the in operator
-      // b. Let kPresent be the result of calling the HasProperty internal
-      //    method of O with argument Pk.
-      //   This step can be combined with c
-      // c. If kPresent is true, then
-      if (k in O) {
-        // i. Let kValue be the result of calling the Get internal
-        //    method of O with argument Pk.
-        kValue = O[k];
-
-        // ii. Let mappedValue be the result of calling the Call internal
-        //     method of callback with T as the this value and argument
-        //     list containing kValue, k, and O.
-        mappedValue = callback.call(T, kValue, k, O);
-
-        // iii. Call the DefineOwnProperty internal method of A with arguments
-        // Pk, Property Descriptor
-        // { Value: mappedValue,
-        //   Writable: true,
-        //   Enumerable: true,
-        //   Configurable: true },
-        // and false.
-
-        // In browsers that support Object.defineProperty, use the following:
-        // Object.defineProperty(A, k, {
-        //   value: mappedValue,
-        //   writable: true,
-        //   enumerable: true,
-        //   configurable: true
-        // });
-
-        // For best browser support, use the following:
-        A[k] = mappedValue;
+      if (this == null) {
+        throw new TypeError('this is null or not defined');
       }
-      // d. Increase k by 1.
-      k++;
-    }
 
-    // 9. return A
-    return A;
-  };
+      // 1. Let O be the result of calling ToObject passing the |this|
+      //    value as the argument.
+      var O = Object(this);
+
+      // 2. Let lenValue be the result of calling the Get internal
+      //    method of O with the argument "length".
+      // 3. Let len be ToUint32(lenValue).
+      var len = O.length >>> 0;
+
+      // 4. If IsCallable(callback) is false, throw a TypeError exception.
+      // See: http://es5.github.com/#x9.11
+      if (typeof callback !== 'function') {
+        throw new TypeError(callback + ' is not a function');
+      }
+
+      // 5. If thisArg was supplied, let T be thisArg; else let T be undefined.
+      if (arguments.length > 1) {
+        T = arguments[1];
+      }
+
+      // 6. Let A be a new array created as if by the expression new Array(len)
+      //    where Array is the standard built-in constructor with that name and
+      //    len is the value of len.
+      A = new Array(len);
+
+      // 7. Let k be 0
+      k = 0;
+
+      // 8. Repeat, while k < len
+      while (k < len) {
+        var kValue, mappedValue;
+
+        // a. Let Pk be ToString(k).
+        //   This is implicit for LHS operands of the in operator
+        // b. Let kPresent be the result of calling the HasProperty internal
+        //    method of O with argument Pk.
+        //   This step can be combined with c
+        // c. If kPresent is true, then
+        if (k in O) {
+          // i. Let kValue be the result of calling the Get internal
+          //    method of O with argument Pk.
+          kValue = O[k];
+
+          // ii. Let mappedValue be the result of calling the Call internal
+          //     method of callback with T as the this value and argument
+          //     list containing kValue, k, and O.
+          mappedValue = callback.call(T, kValue, k, O);
+
+          // iii. Call the DefineOwnProperty internal method of A with arguments
+          // Pk, Property Descriptor
+          // { Value: mappedValue,
+          //   Writable: true,
+          //   Enumerable: true,
+          //   Configurable: true },
+          // and false.
+
+          // In browsers that support Object.defineProperty, use the following:
+          // Object.defineProperty(A, k, {
+          //   value: mappedValue,
+          //   writable: true,
+          //   enumerable: true,
+          //   configurable: true
+          // });
+
+          // For best browser support, use the following:
+          A[k] = mappedValue;
+        }
+        // d. Increase k by 1.
+        k++;
+      }
+
+      // 9. return A
+      return A;
+    },
+  });
 }
 
 /**
@@ -958,6 +957,8 @@ if (!Array.prototype.map) {
  */
 if (!Array.prototype.reduce) {
   Object.defineProperty(Array.prototype, 'reduce', {
+    configurable: true,
+    writable: true,
     value: function (callback /*, initialValue*/) {
       if (this === null) {
         throw new TypeError(
@@ -1014,7 +1015,7 @@ if (!Array.prototype.reduce) {
 
       // 9. Return accumulator.
       return value;
-    }
+    },
   });
 }
 
@@ -1026,36 +1027,42 @@ if (!Array.prototype.reduce) {
  * -------------------------------------------------------------------------------
  */
 if ('function' !== typeof Array.prototype.reduceRight) {
-  Array.prototype.reduceRight = function (callback /*, initialValue*/) {
-    'use strict';
-    if (null === this || 'undefined' === typeof this) {
-      throw new TypeError('Array.prototype.reduce called on null or undefined');
-    }
-    if ('function' !== typeof callback) {
-      throw new TypeError(callback + ' is not a function');
-    }
-    var t = Object(this),
-      len = t.length >>> 0,
-      k = len - 1,
-      value;
-    if (arguments.length >= 2) {
-      value = arguments[1];
-    } else {
-      while (k >= 0 && !(k in t)) {
-        k--;
+  Object.defineProperty(Array.prototype, 'reduceRight', {
+    configurable: true,
+    writable: true,
+    value: function (callback /*, initialValue*/) {
+      'use strict';
+      if (null === this || 'undefined' === typeof this) {
+        throw new TypeError(
+          'Array.prototype.reduce called on null or undefined'
+        );
       }
-      if (k < 0) {
-        throw new TypeError('Reduce of empty array with no initial value');
+      if ('function' !== typeof callback) {
+        throw new TypeError(callback + ' is not a function');
       }
-      value = t[k--];
-    }
-    for (; k >= 0; k--) {
-      if (k in t) {
-        value = callback(value, t[k], k, t);
+      var t = Object(this),
+        len = t.length >>> 0,
+        k = len - 1,
+        value;
+      if (arguments.length >= 2) {
+        value = arguments[1];
+      } else {
+        while (k >= 0 && !(k in t)) {
+          k--;
+        }
+        if (k < 0) {
+          throw new TypeError('Reduce of empty array with no initial value');
+        }
+        value = t[k--];
       }
-    }
-    return value;
-  };
+      for (; k >= 0; k--) {
+        if (k in t) {
+          value = callback(value, t[k], k, t);
+        }
+      }
+      return value;
+    },
+  });
 }
 
 /**
@@ -1090,29 +1097,33 @@ if ('function' !== typeof Array.prototype.reduceRight) {
  * -------------------------------------------------------------------------------
  */
 if (!Array.prototype.some) {
-  Array.prototype.some = function (fun /*, thisArg*/) {
-    'use strict';
+  Object.defineProperty(Array.prototype, 'some', {
+    configurable: true,
+    writable: true,
+    value: function (fun /*, thisArg*/) {
+      'use strict';
 
-    if (this == null) {
-      throw new TypeError('Array.prototype.some called on null or undefined');
-    }
-
-    if (typeof fun !== 'function') {
-      throw new TypeError();
-    }
-
-    var t = Object(this);
-    var len = t.length >>> 0;
-
-    var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
-    for (var i = 0; i < len; i++) {
-      if (i in t && fun.call(thisArg, t[i], i, t)) {
-        return true;
+      if (this == null) {
+        throw new TypeError('Array.prototype.some called on null or undefined');
       }
-    }
 
-    return false;
-  };
+      if (typeof fun !== 'function') {
+        throw new TypeError();
+      }
+
+      var t = Object(this);
+      var len = t.length >>> 0;
+
+      var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+      for (var i = 0; i < len; i++) {
+        if (i in t && fun.call(thisArg, t[i], i, t)) {
+          return true;
+        }
+      }
+
+      return false;
+    },
+  });
 }
 
 /**
@@ -1140,6 +1151,8 @@ if (!Array.prototype.some) {
  */
 if (!Array.prototype.toLocaleString) {
   Object.defineProperty(Array.prototype, 'toLocaleString', {
+    configurable: true,
+    writable: true,
     value: function (locales, options) {
       // 1. Let O be ? ToObject(this value).
       if (this == null) {
@@ -1219,7 +1232,7 @@ if (!Array.prototype.toLocaleString) {
 
       // 10. Return R.
       return r;
-    }
+    },
   });
 }
 
@@ -1248,7 +1261,7 @@ if (!Array.prototype.toLocaleString) {
  */
 if (!Array.prototype.values) {
   Array.prototype.values = function () {
-    function Iterator() { }
+    function Iterator() {}
 
     Iterator.prototype.next = function () {
       if (index > selfThis.length - 1) {
@@ -1258,12 +1271,12 @@ if (!Array.prototype.values) {
         return { value: undefined, done: true };
       }
       return { value: selfThis[index++], done: false };
-    }
+    };
 
     var selfThis = this;
     var index = 0;
     var done;
 
     return new Iterator();
-  }
+  };
 }
