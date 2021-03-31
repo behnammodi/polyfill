@@ -17,14 +17,22 @@ if (!Date.prototype.toISOString) {
         return number;
       }
 
-      return this.getUTCFullYear() +
-        '-' + pad(this.getUTCMonth() + 1) +
-        '-' + pad(this.getUTCDate()) +
-        'T' + pad(this.getUTCHours()) +
-        ':' + pad(this.getUTCMinutes()) +
-        ':' + pad(this.getUTCSeconds()) +
-        '.' + (this.getUTCMilliseconds() / 1000).toFixed(3).slice(2, 5) +
-        'Z';
-    }
+      return (
+        this.getUTCFullYear() +
+        '-' +
+        pad(this.getUTCMonth() + 1) +
+        '-' +
+        pad(this.getUTCDate()) +
+        'T' +
+        pad(this.getUTCHours()) +
+        ':' +
+        pad(this.getUTCMinutes()) +
+        ':' +
+        pad(this.getUTCSeconds()) +
+        '.' +
+        (this.getUTCMilliseconds() / 1000).toFixed(3).slice(2, 5) +
+        'Z'
+      );
+    },
   });
 }

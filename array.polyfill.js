@@ -207,7 +207,7 @@ if (!Array.prototype.copyWithin) {
  */
 if (!Array.prototype.entries) {
   Array.prototype.entries = function () {
-    function Iterator() { }
+    function Iterator() {}
 
     Iterator.prototype.next = function () {
       if (index > selfThis.length - 1) {
@@ -217,15 +217,14 @@ if (!Array.prototype.entries) {
         return { value: undefined, done: true };
       }
       return { value: [index, selfThis[index++]], done: false };
-    }
+    };
 
     var selfThis = this;
     var index = 0;
     var done;
 
-      return new Iterator();
-    },
-  });
+    return new Iterator();
+  };
 }
 
 /**
@@ -772,7 +771,7 @@ if (!Array.prototype.indexOf) {
  */
 if (!Array.prototype.keys) {
   Array.prototype.keys = function () {
-    function Iterator() { }
+    function Iterator() {}
 
     Iterator.prototype.next = function () {
       if (index > selfThis.length - 1) {
@@ -782,15 +781,14 @@ if (!Array.prototype.keys) {
         return { value: undefined, done: true };
       }
       return { value: index++, done: false };
-    }
+    };
 
     var selfThis = this;
     var index = 0;
     var done;
 
-      return new Iterator();
-    },
-  });
+    return new Iterator();
+  };
 }
 
 /**
@@ -1263,7 +1261,7 @@ if (!Array.prototype.toLocaleString) {
  */
 if (!Array.prototype.values) {
   Array.prototype.values = function () {
-    function Iterator() { }
+    function Iterator() {}
 
     Iterator.prototype.next = function () {
       if (index > selfThis.length - 1) {
@@ -1273,13 +1271,12 @@ if (!Array.prototype.values) {
         return { value: undefined, done: true };
       }
       return { value: selfThis[index++], done: false };
-    }
+    };
 
     var selfThis = this;
     var index = 0;
     var done;
 
-      return new Iterator();
-    },
-  });
+    return new Iterator();
+  };
 }
