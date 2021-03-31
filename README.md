@@ -4,7 +4,16 @@
 
 Array, Date, Element, Function, Number and String
 
+## Compatibility goal
+
+| Feature | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
+| ------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
+| Support | 40     | 42      | 9                 | 27    | 9      | 12   |
+
+<br />
+
 ### Array Polyfill:
+
 ```js
 Array.from
 Array.isArray
@@ -32,16 +41,19 @@ Array.prototype.values
 ```
 
 ### Date Polyfill:
+
 ```js
 Date.prototype.toISOString
 ```
 
 ### Number Polyfill:
+
 ```js
 Number.isInteger
 ```
 
 ### String Polyfill:
+
 ```js
 String.fromCodePoint
 String.prototype.codePointAt
@@ -53,7 +65,6 @@ String.prototype.repeat
 String.prototype.startsWith
 String.prototype.trim
 ```
-
 
 ## Donate
 
