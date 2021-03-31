@@ -499,10 +499,10 @@ if (!Array.prototype.findIndex) {
  */
 if (!Array.prototype.flat) {
   Array.prototype.flat = function () {
-    const stack = [].concat(this);
-    const result = [];
+    var stack = [].concat(this);
+    var result = [];
     while (stack.length) {
-      const next = stack.pop();
+      var next = stack.pop();
       if (Array.isArray(next)) stack.push.apply(stack, next);
       else result.push(next);
     }
