@@ -207,18 +207,18 @@ if( !Array.prototype.entries ) {
 
     function Iterator() { }
     Iterator.prototype.next = function() {
-      if( index > arr.length-1 ) {
+      if( index > selfThis.length-1 ) {
         done = true;
       }
       if( done ) {
         return { value : undefined, done : true };
       }
-      return { value : [ index, arr[index++] ], done : false };
+      return { value : [ index, selfThis[index++] ], done : false };
     }
 
-    const arr = this;
-    let index = 0;
-    let done;
+    var selfThis = this;
+    var index = 0;
+    var done;
 
     return new Iterator();
   }
@@ -738,7 +738,7 @@ if( !Array.prototype.keys ) {
 
     function Iterator() { }
     Iterator.prototype.next = function() {
-      if( index > arr.length-1 ) {
+      if( index > selfThis.length-1 ) {
         done = true;
       }
       if( done ) {
@@ -747,9 +747,9 @@ if( !Array.prototype.keys ) {
       return { value : index++, done : false };
     }
 
-    const arr = this;
-    let index = 0;
-    let done;
+    var selfThis = this;
+    var index = 0;
+    var done;
 
     return new Iterator();
   }
@@ -1208,18 +1208,18 @@ if( !Array.prototype.values ) {
 
     function Iterator() { }
     Iterator.prototype.next = function() {
-      if( index > arr.length-1 ) {
+      if( index > selfThis.length-1 ) {
         done = true;
       }
       if( done ) {
         return { value : undefined, done : true };
       }
-      return { value : arr[index++], done : false };
+      return { value : selfThis[index++], done : false };
     }
 
-    const arr = this;
-    let index = 0;
-    let done;
+    var selfThis = this;
+    var index = 0;
+    var done;
 
     return new Iterator();
   }
