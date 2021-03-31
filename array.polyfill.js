@@ -518,10 +518,10 @@ if (!Array.prototype.flat) {
     configurable: true,
     writable: true,
     value: function () {
-      const stack = [].concat(this);
-      const result = [];
+      var stack = [].concat(this);
+      var result = [];
       while (stack.length) {
-        const next = stack.pop();
+        var next = stack.pop();
         if (Array.isArray(next)) {
           stack.push.apply(stack, next);
         } else {
