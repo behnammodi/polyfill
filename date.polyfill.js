@@ -7,9 +7,9 @@
  */
 if (!Date.prototype.toISOString) {
   Object.defineProperty(Array.prototype, 'toISOString', {
-    configurable : true,
-    writable : true,
-    value :  function () {
+    configurable: true,
+    writable: true,
+    value: function () {
       function pad(number) {
         if (number < 10) {
           return '0' + number;
