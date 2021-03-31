@@ -19,7 +19,7 @@
 if (!String.fromCodePoint) {
   var stringFromCharCode = String.fromCharCode;
   var floor = Math.floor;
-  Object.defineProperty(String.prototype, 'fromCodePoint', {
+  Object.defineProperty(String, 'fromCodePoint', {
     configurable: true,
     writable: true,
     value: function () {
