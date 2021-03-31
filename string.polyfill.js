@@ -39,7 +39,7 @@ if (!String.fromCodePoint) {
           !isFinite(codePoint) ||
           codePoint < 0 ||
           codePoint > 0x10ffff ||
-          Math.floor(codePoint) != codePoint
+          floor(codePoint) != codePoint
         ) {
           throw RangeError('Invalid code point: ' + codePoint);
         }
