@@ -20,7 +20,7 @@ if (!String.fromCodePoint) {
         var object = {};
         var $defineProperty = Object.defineProperty;
         var result = $defineProperty(object, object, object) && $defineProperty;
-      } catch (error) { }
+      } catch (error) {}
       return result;
     })();
     var stringFromCharCode = String.fromCharCode;
@@ -66,7 +66,7 @@ if (!String.fromCodePoint) {
       defineProperty(String, 'fromCodePoint', {
         value: fromCodePoint,
         configurable: true,
-        writable: true
+        writable: true,
       });
     } else {
       String.fromCodePoint = fromCodePoint;
@@ -135,7 +135,7 @@ if (!String.prototype.codePointAt) {
       Object.defineProperty(String.prototype, 'codePointAt', {
         value: codePointAt,
         configurable: true,
-        writable: true
+        writable: true,
       });
     } else {
       String.prototype.codePointAt = codePointAt;
@@ -159,20 +159,24 @@ if (!String.prototype.codePointAt) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.endsWith) {
-  String.prototype.endsWith = function (searchString, position) {
-    var subjectString = this.toString();
-    if (
-      typeof position !== 'number' ||
-      !isFinite(position) ||
-      Math.floor(position) !== position ||
-      position > subjectString.length
-    ) {
-      position = subjectString.length;
-    }
-    position -= searchString.length;
-    var lastIndex = subjectString.lastIndexOf(searchString, position);
-    return lastIndex !== -1 && lastIndex === position;
-  };
+  Object.defineProperty(String.prototype, 'endsWith', {
+    configurable: true,
+    writable: true,
+    value: function (searchString, position) {
+      var subjectString = this.toString();
+      if (
+        typeof position !== 'number' ||
+        !isFinite(position) ||
+        Math.floor(position) !== position ||
+        position > subjectString.length
+      ) {
+        position = subjectString.length;
+      }
+      position -= searchString.length;
+      var lastIndex = subjectString.lastIndexOf(searchString, position);
+      return lastIndex !== -1 && lastIndex === position;
+    },
+  });
 }
 
 /**
@@ -183,17 +187,21 @@ if (!String.prototype.endsWith) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.includes) {
-  String.prototype.includes = function (search, start) {
-    'use strict';
-    if (typeof start !== 'number') {
-      start = 0;
-    }
-    if (start + search.length > this.length) {
-      return false;
-    } else {
-      return this.indexOf(search, start) !== -1;
-    }
-  };
+  Object.defineProperty(String.prototype, 'includes', {
+    configurable: true,
+    writable: true,
+    value: function (search, start) {
+      'use strict';
+      if (typeof start !== 'number') {
+        start = 0;
+      }
+      if (start + search.length > this.length) {
+        return false;
+      } else {
+        return this.indexOf(search, start) !== -1;
+      }
+    },
+  });
 }
 
 /**
@@ -255,19 +263,23 @@ if (!String.prototype.normalize) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.padEnd) {
-  String.prototype.padEnd = function padEnd(targetLength, padString) {
-    targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
-    padString = String(typeof padString !== 'undefined' ? padString : ' ');
-    if (this.length > targetLength) {
-      return String(this);
-    } else {
-      targetLength = targetLength - this.length;
-      if (targetLength > padString.length) {
-        padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
+  Object.defineProperty(String.prototype, 'padEnd', {
+    configurable: true,
+    writable: true,
+    value: function (targetLength, padString) {
+      targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
+      padString = String(typeof padString !== 'undefined' ? padString : ' ');
+      if (this.length > targetLength) {
+        return String(this);
+      } else {
+        targetLength = targetLength - this.length;
+        if (targetLength > padString.length) {
+          padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
+        }
+        return String(this) + padString.slice(0, targetLength);
       }
-      return String(this) + padString.slice(0, targetLength);
-    }
-  };
+    },
+  });
 }
 
 /**
@@ -278,19 +290,23 @@ if (!String.prototype.padEnd) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.padStart) {
-  String.prototype.padStart = function padStart(targetLength, padString) {
-    targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
-    padString = String(typeof padString !== 'undefined' ? padString : ' ');
-    if (this.length > targetLength) {
-      return String(this);
-    } else {
-      targetLength = targetLength - this.length;
-      if (targetLength > padString.length) {
-        padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
+  Object.defineProperty(String.prototype, 'padStart', {
+    configurable: true,
+    writable: true,
+    value: function (targetLength, padString) {
+      targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
+      padString = String(typeof padString !== 'undefined' ? padString : ' ');
+      if (this.length > targetLength) {
+        return String(this);
+      } else {
+        targetLength = targetLength - this.length;
+        if (targetLength > padString.length) {
+          padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
+        }
+        return padString.slice(0, targetLength) + String(this);
       }
-      return padString.slice(0, targetLength) + String(this);
-    }
-  };
+    },
+  });
 }
 
 /**
@@ -301,44 +317,48 @@ if (!String.prototype.padStart) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.repeat) {
-  String.prototype.repeat = function (count) {
-    'use strict';
-    if (this == null) {
-      throw new TypeError("can't convert " + this + ' to object');
-    }
-    var str = '' + this;
-    count = +count;
-    if (count != count) {
-      count = 0;
-    }
-    if (count < 0) {
-      throw new RangeError('repeat count must be non-negative');
-    }
-    if (count == Infinity) {
-      throw new RangeError('repeat count must be less than infinity');
-    }
-    count = Math.floor(count);
-    if (str.length == 0 || count == 0) {
-      return '';
-    }
-    if (str.length * count >= 1 << 28) {
-      throw new RangeError(
-        'repeat count must not overflow maximum string size'
-      );
-    }
-    var rpt = '';
-    for (; ;) {
-      if ((count & 1) == 1) {
-        rpt += str;
+  Object.defineProperty(String.prototype, 'repeat', {
+    configurable: true,
+    writable: true,
+    value: function (count) {
+      'use strict';
+      if (this == null) {
+        throw new TypeError("can't convert " + this + ' to object');
       }
-      count >>>= 1;
-      if (count == 0) {
-        break;
+      var str = '' + this;
+      count = +count;
+      if (count != count) {
+        count = 0;
       }
-      str += str;
-    }
-    return rpt;
-  };
+      if (count < 0) {
+        throw new RangeError('repeat count must be non-negative');
+      }
+      if (count == Infinity) {
+        throw new RangeError('repeat count must be less than infinity');
+      }
+      count = Math.floor(count);
+      if (str.length == 0 || count == 0) {
+        return '';
+      }
+      if (str.length * count >= 1 << 28) {
+        throw new RangeError(
+          'repeat count must not overflow maximum string size'
+        );
+      }
+      var rpt = '';
+      for (;;) {
+        if ((count & 1) == 1) {
+          rpt += str;
+        }
+        count >>>= 1;
+        if (count == 0) {
+          break;
+        }
+        str += str;
+      }
+      return rpt;
+    },
+  });
 }
 
 /**
@@ -373,10 +393,14 @@ if (!String.prototype.repeat) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.startsWith) {
-  String.prototype.startsWith = function (searchString, position) {
-    position = position || 0;
-    return this.substr(position, searchString.length) === searchString;
-  };
+  Object.defineProperty(String.prototype, 'startsWith', {
+    configurable: true,
+    writable: true,
+    value: function (searchString, position) {
+      position = position || 0;
+      return this.substr(position, searchString.length) === searchString;
+    },
+  });
 }
 
 /**
@@ -443,9 +467,13 @@ if (!String.prototype.startsWith) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.trim) {
-  String.prototype.trim = function () {
-    return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
-  };
+  Object.defineProperty(String.prototype, 'trim', {
+    configurable: true,
+    writable: true,
+    value: function () {
+      return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+    },
+  });
 }
 
 /**
