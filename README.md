@@ -49,6 +49,7 @@ Date.prototype.toISOString;
 ### Math Polyfill:
 
 ```js
+Math.sign;
 Math.trunc;
 ```
 
