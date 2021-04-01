@@ -1,3 +1,6 @@
+
+'use strict';
+
 /**
  * Array.prototype.at()
  * version 0.0.0
@@ -265,7 +268,6 @@ if (!Array.prototype.every) {
     configurable: true,
     writable: true,
     value: function (callbackfn, thisArg) {
-      'use strict';
       var T, k;
 
       if (this == null) {
@@ -392,8 +394,6 @@ if (!Array.prototype.filter) {
     configurable: true,
     writable: true,
     value: function (fun /*, thisArg*/) {
-      'use strict';
-
       if (this === void 0 || this === null) {
         throw new TypeError();
       }
@@ -544,10 +544,10 @@ if (!Array.prototype.flat) {
     configurable: true,
     writable: true,
     value: function () {
-      const stack = [].concat(this);
-      const result = [];
+      var stack = [].concat(this);
+      var result = [];
       while (stack.length) {
-        const next = stack.pop();
+        var next = stack.pop();
         if (Array.isArray(next)) {
           stack.push.apply(stack, next);
         } else {
@@ -829,8 +829,6 @@ if (!Array.prototype.lastIndexOf) {
     configurable: true,
     writable: true,
     value: function (searchElement /*, fromIndex*/) {
-      'use strict';
-
       if (this === void 0 || this === null) {
         throw new TypeError();
       }
@@ -1057,7 +1055,6 @@ if ('function' !== typeof Array.prototype.reduceRight) {
     configurable: true,
     writable: true,
     value: function (callback /*, initialValue*/) {
-      'use strict';
       if (null === this || 'undefined' === typeof this) {
         throw new TypeError(
           'Array.prototype.reduce called on null or undefined'
@@ -1127,8 +1124,6 @@ if (!Array.prototype.some) {
     configurable: true,
     writable: true,
     value: function (fun /*, thisArg*/) {
-      'use strict';
-
       if (this == null) {
         throw new TypeError('Array.prototype.some called on null or undefined');
       }

@@ -1,3 +1,6 @@
+
+'use strict';
+
 /**
  * Date.prototype.toISOString()
  * version 0.0.0

@@ -1,3 +1,6 @@
+
+'use strict';
+
 /**
  * Function.prototype.displayName
  * version 0.0.0

@@ -1,3 +1,6 @@
+
+'use strict';
+
 /**
  * String.prototype.at()
  * version 0.0.0
@@ -133,7 +136,6 @@ if (!String.fromCodePoint) {
  */
 if (!String.prototype.codePointAt) {
   (function () {
-    'use strict';
     var codePointAt = function (position) {
       if (this == null) {
         throw TypeError();
@@ -217,7 +219,6 @@ if (!String.prototype.includes) {
     configurable: true,
     writable: true,
     value: function (search, start) {
-      'use strict';
       if (typeof start !== 'number') {
         start = 0;
       }
@@ -347,7 +348,6 @@ if (!String.prototype.repeat) {
     configurable: true,
     writable: true,
     value: function (count) {
-      'use strict';
       if (this == null) {
         throw new TypeError("can't convert " + this + ' to object');
       }
