@@ -2,13 +2,14 @@
 
 ## Polyfill includes:
 
-Array, Date, Element, Function, Number, String and Uint8Array
+Array, Date, Element, Function, Math, Number, String and Uint8Array
 
 ## Compatibility goal
+
 Maybe these versions are not correct
 | Feature | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
 | ------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
-| Support | 40     | 42      | 9                 | 27    | 9      | 12   |
+| Support | 40 | 42 | 9 | 27 | 9 | 12 |
 
 ### Array Polyfill:
 
@@ -43,6 +44,12 @@ Array.prototype.values;
 
 ```js
 Date.prototype.toISOString;
+```
+
+### Math Polyfill:
+
+```js
+Math.trunc;
 ```
 
 ### Number Polyfill:
