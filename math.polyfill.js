@@ -5,7 +5,7 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc#browser_compatibility
  */
  if (!Math.trunc) {
-  Math.trunc = function (v) {
-    return v < 0 ? Math.ceil(v) : Math.floor(v);
+  Math.trunc = function (n) {
+    return n < 0 ? Math.ceil(n) : Math.floor(n);
   };
 }
