@@ -2,7 +2,7 @@
 
 ## Polyfill includes:
 
-Array, Date, Element, Function, Number and String
+Array, Date, Element, Function, Number, String and Uint8Array
 
 ## Compatibility goal
 Maybe these versions are not correct
@@ -16,6 +16,7 @@ Maybe these versions are not correct
 Array.from;
 Array.isArray;
 Array.of;
+Array.prototype.at;
 Array.prototype.copyWithin;
 Array.prototype.entries;
 Array.prototype.every;
@@ -54,6 +55,7 @@ Number.isInteger;
 
 ```js
 String.fromCodePoint;
+String.prototype.at;
 String.prototype.codePointAt;
 String.prototype.endsWith;
 String.prototype.includes;
@@ -62,6 +64,12 @@ String.prototype.padStart;
 String.prototype.repeat;
 String.prototype.startsWith;
 String.prototype.trim;
+```
+
+### Uint8Array Polyfill:
+
+```js
+Uint8Array.prototype.at;
 ```
 
 ## Donate
