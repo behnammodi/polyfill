@@ -4,13 +4,8 @@
 
 Array, Date, Element, Function, Math, Number, String and Uint8Array
 
-## Compatibility goal
-
-Maybe these versions are not correct
-| Feature | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
-| ------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
-| Support | 40 | 42 | 9 | 27 | 9 | 12 |
-
+## NPM
+⚠️ We don't have any package in NPM!
 ### Array Polyfill:
 
 ```js
