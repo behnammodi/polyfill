@@ -18,7 +18,7 @@
  */
 
 if( Function.prototype.name!=="" ) {
-  var rx = /function\ (.+)\(/;
+  var rx = /function\ ([\w$]+)\(/;
   Object.defineProperty(Function.prototype, "name", {
     get: function() {
       var match = rx.exec(this+"");
