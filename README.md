@@ -5,7 +5,9 @@
 Array, Date, Element, Function, Math, Number, String and Uint8Array
 
 ## NPM
+
 ⚠️ We don't have any package in NPM!
+
 ### Array Polyfill:
 
 ```js
@@ -39,6 +41,12 @@ Array.prototype.values;
 
 ```js
 Date.prototype.toISOString;
+```
+
+### Function Polyfill:
+
+```js
+Function.prototype.name;
 ```
 
 ### Math Polyfill:
