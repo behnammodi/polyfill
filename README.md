@@ -2,7 +2,7 @@
 
 ## Polyfill includes:
 
-Array, Date, Element, Function, Math, Number, String and Uint8Array
+Array, Date, Element, Function, Math, Number, String, Uint8Array and Window
 
 ## NPM
 
@@ -81,6 +81,13 @@ String.prototype.trim;
 
 ```js
 Uint8Array.prototype.at;
+```
+
+### window Polyfill:
+
+```js
+window.requestIdleCallback;
+window.cancelIdleCallback;
 ```
 
 ## Donate
