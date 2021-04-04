@@ -5,13 +5,13 @@
  * https://developer.mozilla.org/en-US/docs/Web/API/Window/requestIdleCallback#browser_compatibility
  */
 if (!window.requestIdleCallback) {
-  window.requestIdleCallback = function (cb, options) {
+  window.requestIdleCallback = function (callback, options) {
     var options = options || {};
     var relaxation = 1;
     var timeout = options.timeout || relaxation;
     var start = Date.now();
     return setTimeout(function () {
-      cb({
+      callback({
         get didTimeout() {
           return options.timeout ? false : start - Date.now() - relaxation > timeout;
         },
