@@ -13,7 +13,7 @@ if (!window.requestIdleCallback) {
     return setTimeout(function () {
       callback({
         get didTimeout() {
-          return options.timeout ? false : start - Date.now() - relaxation > timeout;
+          return options.timeout ? false : (Date.now() - start) - relaxation > timeout;
         },
         timeRemaining: function () {
           return Math.max(0, relaxation + (Date.now() - start));
