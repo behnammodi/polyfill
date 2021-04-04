@@ -16,7 +16,7 @@ if (!window.requestIdleCallback) {
           return options.timeout ? false : start - Date.now() - relaxation > timeout;
         },
         timeRemaining: function () {
-          return Math.max(0, relaxation - (Date.now() - start));
+          return Math.max(0, relaxation + (Date.now() - start));
         },
       });
     }, relaxation);
