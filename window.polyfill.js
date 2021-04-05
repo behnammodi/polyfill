@@ -9,14 +9,14 @@ if (!window.requestIdleCallback) {
     var options = options || {};
     var relaxation = 1;
     var timeout = options.timeout || relaxation;
-    var start = Date.now();
+    var start = performance.now();
     return setTimeout(function () {
       callback({
         get didTimeout() {
-          return options.timeout ? false : (Date.now() - start) - relaxation > timeout;
+          return options.timeout ? false : (performance.now() - start) - relaxation > timeout;
         },
         timeRemaining: function () {
-          return Math.max(0, relaxation + (Date.now() - start));
+          return Math.max(0, relaxation + (performance.now() - start));
         },
       });
     }, relaxation);
