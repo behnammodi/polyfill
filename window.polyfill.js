@@ -23,14 +23,13 @@ if (!window.requestIdleCallback) {
   };
 }
 
-
 /**
 * window.cancelIdleCallback()
 * version 0.0.0
 * Browser Compatibility:
 * https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelIdleCallback#browser_compatibility
 */
-if (!requestIdleCallback) {
+if (!window.cancelIdleCallback) {
   window.cancelIdleCallback = function (id) {
     clearTimeout(id);
   };
