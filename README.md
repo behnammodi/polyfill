@@ -88,6 +88,8 @@ Uint8Array.prototype.at;
 ```js
 window.requestIdleCallback;
 window.cancelIdleCallback;
+window.requestAnimationFrame;
+window.cancelAnimationFrame;
 ```
 
 ## Donate
