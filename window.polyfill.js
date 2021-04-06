@@ -34,3 +34,29 @@ if (!window.cancelIdleCallback) {
     clearTimeout(id);
   };
 }
+
+/**
+* window.requestAnimationFrame()
+* version 0.0.0
+* Browser Compatibility:
+* https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame#browser_compatibility
+*/
+if (!window.requestAnimationFrame) {
+  window.requestAnimationFrame = function (callback) {
+    return window.setTimeout(function () {
+      callback(Date.now());
+    }, 1000 / 60);
+  };
+}
+
+/**
+* window.cancelAnimationFrame()
+* version 0.0.0
+* Browser Compatibility:
+* https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame#browser_compatibility
+*/
+if (!window.cancelAnimationFrame) {
+  window.cancelAnimationFrame = function (id) {
+    clearTimeout(id);
+  };
+}
