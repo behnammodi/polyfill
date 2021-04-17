@@ -2,13 +2,11 @@
 
 ## Polyfill includes:
 
-Array, Date, Element, Function, Number and String
+Array, Date, Element, Function, Math, Number, String, Uint8Array and Window
 
-## Compatibility goal
-Maybe these versions are not correct
-| Feature | Chrome | Firefox | Internet Explorer | Opera | Safari | Edge |
-| ------- | ------ | ------- | ----------------- | ----- | ------ | ---- |
-| Support | 40     | 42      | 9                 | 27    | 9      | 12   |
+## NPM
+
+⚠️ We don't have any package in NPM!
 
 ### Array Polyfill:
 
@@ -16,6 +14,7 @@ Maybe these versions are not correct
 Array.from;
 Array.isArray;
 Array.of;
+Array.prototype.at;
 Array.prototype.copyWithin;
 Array.prototype.entries;
 Array.prototype.every;
@@ -44,6 +43,19 @@ Array.prototype.values;
 Date.prototype.toISOString;
 ```
 
+### Function Polyfill:
+
+```js
+Function.prototype.name;
+```
+
+### Math Polyfill:
+
+```js
+Math.sign;
+Math.trunc;
+```
+
 ### Number Polyfill:
 
 ```js
@@ -54,6 +66,7 @@ Number.isInteger;
 
 ```js
 String.fromCodePoint;
+String.prototype.at;
 String.prototype.codePointAt;
 String.prototype.endsWith;
 String.prototype.includes;
@@ -62,6 +75,21 @@ String.prototype.padStart;
 String.prototype.repeat;
 String.prototype.startsWith;
 String.prototype.trim;
+```
+
+### Uint8Array Polyfill:
+
+```js
+Uint8Array.prototype.at;
+```
+
+### window Polyfill:
+
+```js
+window.requestIdleCallback;
+window.cancelIdleCallback;
+window.requestAnimationFrame;
+window.cancelAnimationFrame;
 ```
 
 ## Donate
