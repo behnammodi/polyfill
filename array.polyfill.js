@@ -544,17 +544,23 @@ if (!Array.prototype.flat) {
     configurable: true,
     writable: true,
     value: function () {
-      var stack = [].concat(this);
+      var depth =
+        typeof arguments[0] === 'undefined' ? 1 : Number(arguments[0]) || 0;
       var result = [];
-      while (stack.length) {
-        var next = stack.pop();
-        if (Array.isArray(next)) {
-          stack.push.apply(stack, next);
-        } else {
-          result.push(next);
-        }
-      }
-      return result.reverse();
+      var forEach = result.forEach;
+
+      var flatDeep = function (arr, depth) {
+        forEach.call(arr, function (val) {
+          if (depth > 0 && Array.isArray(val)) {
+            flatDeep(val, depth - 1);
+          } else {
+            result.push(val);
+          }
+        });
+      };
+
+      flatDeep(this, depth);
+      return result;
     },
   });
 }
