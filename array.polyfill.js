@@ -2,6 +2,62 @@
 'use strict';
 
 /**
+ * Array.prototype.findLastIndex()
+ * version 0.0.0
+ * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
+ * Basic support    No      No      No                  No    No      No
+ * -------------------------------------------------------------------------------
+ */
+if (!Array.prototype.findLastIndex) {
+  Object.defineProperty(Array.prototype, "findLastIndex",
+    {
+      value: function (predicate, thisArg) {
+        let idx = this.length - 1;
+        while (idx >= 0) {
+          const value = this[idx];
+          if (predicate.call(thisArg, value, idx, this)) {
+            return idx;
+          }
+          idx--;
+        }
+        return -1;
+      }
+      ,
+      writable: true,
+      enumerable: false,
+      configurable: true
+    });
+}
+
+/**
+ * Array.prototype.findLast()
+ * version 0.0.0
+ * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
+ * Basic support    No      No      No                  No    No      No
+ * -------------------------------------------------------------------------------
+ */
+if (!Array.prototype.findLast) {
+  Object.defineProperty(Array.prototype, "findLast",
+    {
+      value: function (predicate, thisArg) {
+        let idx = this.length - 1;
+        while (idx >= 0) {
+          const value = this[idx];
+          if (predicate.call(thisArg, value, idx, this)) {
+            return value;
+          }
+          idx--;
+        }
+        return undefined;
+      }
+      ,
+      writable: true,
+      enumerable: false,
+      configurable: true
+    });
+}
+
+/**
  * Array.prototype.at()
  * version 0.0.0
  * Feature	        Chrome  Firefox Internet Explorer   Opera	Safari	Edge
