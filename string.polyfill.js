@@ -43,18 +43,12 @@ if (!String.prototype.at) {
  * -------------------------------------------------------------------------------
  */
 if (!String.fromCodePoint) {
-  (function () {
-    var defineProperty = (function () {
-      try {
-        var object = {};
-        var $defineProperty = Object.defineProperty;
-        var result = $defineProperty(object, object, object) && $defineProperty;
-      } catch (error) { }
-      return result;
-    })();
-    var stringFromCharCode = String.fromCharCode;
-    var floor = Math.floor;
-    var fromCodePoint = function () {
+  var stringFromCharCode = String.fromCharCode;
+  var floor = Math.floor;
+  Object.defineProperty(String, 'fromCodePoint', {
+    configurable: true,
+    writable: true,
+    value: function () {
       var MAX_SIZE = 0x4000;
       var codeUnits = [];
       var highSurrogate;
@@ -90,17 +84,8 @@ if (!String.fromCodePoint) {
         }
       }
       return result;
-    };
-    if (defineProperty) {
-      defineProperty(String, 'fromCodePoint', {
-        value: fromCodePoint,
-        configurable: true,
-        writable: true,
-      });
-    } else {
-      String.fromCodePoint = fromCodePoint;
-    }
-  })();
+    },
+  });
 }
 
 /**
@@ -135,8 +120,10 @@ if (!String.fromCodePoint) {
  * -------------------------------------------------------------------------------
  */
 if (!String.prototype.codePointAt) {
-  (function () {
-    var codePointAt = function (position) {
+  Object.defineProperty(String.prototype, 'codePointAt', {
+    configurable: true,
+    writable: true,
+    value: function (position) {
       if (this == null) {
         throw TypeError();
       }
@@ -158,17 +145,8 @@ if (!String.prototype.codePointAt) {
         }
       }
       return first;
-    };
-    if (Object.defineProperty) {
-      Object.defineProperty(String.prototype, 'codePointAt', {
-        value: codePointAt,
-        configurable: true,
-        writable: true,
-      });
-    } else {
-      String.prototype.codePointAt = codePointAt;
-    }
-  })();
+    },
+  });
 }
 
 /**
