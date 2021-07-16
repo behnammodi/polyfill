@@ -9,7 +9,7 @@
  * -------------------------------------------------------------------------------
  */
 if (!Date.prototype.toISOString) {
-  Object.defineProperty(Array.prototype, 'toISOString', {
+  Object.defineProperty(Date.prototype, 'toISOString', {
     configurable: true,
     writable: true,
     value: function () {
