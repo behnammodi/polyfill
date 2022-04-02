@@ -92,6 +92,8 @@ window.requestAnimationFrame;
 window.cancelAnimationFrame;
 ```
 
-## Donate
+## Sponsor
 
-BTC: `1NV1sjQnXwuyHgxQ8G5eWprhxsD5A8yN6r`
+<img alt="open collective badge" src="https://opencollective.com/polyfill/tiers/sponsor/badge.svg?label=sponsor&color=brightgreen" />
+
+[Become a Sponsor](https://opencollective.com/polyfill)
