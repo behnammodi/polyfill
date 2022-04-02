@@ -1,5 +1,8 @@
 # Set of all Javascript polyfills
 
+Help us to be best,
+[Become a Sponsor](https://opencollective.com/polyfill)
+
 ## Polyfill includes:
 
 Array, Date, Element, Function, Math, Number, String, Uint8Array and Window
@@ -93,7 +96,5 @@ window.cancelAnimationFrame;
 ```
 
 ## Sponsor
-
-<img alt="open collective badge" src="https://opencollective.com/polyfill/tiers/sponsor/badge.svg?label=sponsor&color=brightgreen" />
 
 [Become a Sponsor](https://opencollective.com/polyfill)
