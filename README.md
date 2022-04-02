@@ -1,7 +1,8 @@
 # Set of all Javascript polyfills
 
-Help us to be best,
-[Become a Sponsor](https://opencollective.com/polyfill)
+Help us to be best
+
+[![Backers](https://opencollective.com/polyfill/tiers/backers.svg?avatarHeight=114&width=838)](https://opencollective.com/polyfill)
 
 ## Polyfill includes:
 
@@ -95,6 +96,7 @@ window.requestAnimationFrame;
 window.cancelAnimationFrame;
 ```
 
-## Sponsor
+## Backers
 
-[Become a Sponsor](https://opencollective.com/polyfill)
+[![Backers](https://opencollective.com/polyfill/tiers/backers.svg?avatarHeight=114&width=838)](https://opencollective.com/polyfill)
+
