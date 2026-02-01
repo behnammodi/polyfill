@@ -1,6 +1,6 @@
 # Set of all Javascript polyfills
 
-Help us to be best
+Help us be the best
 
 [![Backers](https://opencollective.com/polyfill/tiers/backers.svg?avatarHeight=114&width=838)](https://opencollective.com/polyfill)
 
